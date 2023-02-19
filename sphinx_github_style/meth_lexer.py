@@ -26,6 +26,10 @@ funcs = get_pkg_funcs(sphinx_github_style)
 
 
 class TDKMethLexer(NumPyLexer):
+
+    """Highlights methods and functions
+
+    """
     name = 'TDK'
     url = 'https://github.com/TDKorn'
     aliases = ['tdk']
