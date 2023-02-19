@@ -27,7 +27,7 @@ funcs = get_pkg_funcs(sphinx_github_style)
 
 class TDKMethLexer(NumPyLexer):
 
-    """Highlights methods and functions
+    """Adds syntax highlighting for a python Package's methods
 
     """
     name = 'TDK'
