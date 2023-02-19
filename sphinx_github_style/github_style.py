@@ -1,11 +1,5 @@
-import types
-import magento
 from pygments.token import *
 from pygments.style import Style
-from pygments.lexers.python import NumPyLexer
-from inspect import getmembers, getmodule, isfunction, ismethod, ismodule, isclass
-from sphinx.application import Sphinx
-
 
 # Pygments Token/CSS Mappings: https://gist.github.com/TDKorn/f3a7fc98503eccb602ae7af428c0b981
 
@@ -46,7 +40,6 @@ pl = {
 }
 
 
-
 class TDKStyle(Style):
     """An attempt at creating a Pygments style similar to GitHub's pretty lights dark theme"""
 
@@ -75,7 +68,6 @@ class TDKStyle(Style):
         Generic.Subheading: "#f8f8f2 bold",
         Generic.Traceback: "#f8f8f2",
         Error: "#f8f8f2",
-
 
         Keyword: pl["syntax-keyword"],
         Keyword.Constant: pl["syntax-constant"],
@@ -144,4 +136,3 @@ class TDKStyle(Style):
         String.Symbol: pl["syntax-string"],
         Text: pl["syntax-markup-bold"],
     }
-
