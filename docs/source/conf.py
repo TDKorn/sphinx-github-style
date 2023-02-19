@@ -84,10 +84,10 @@ latex_elements = {  # Less yucky looking font
 }
 from sphinx_github_style.github_style import TDKStyle
 # Add custom Pygments style if HTML
-if 'html' in sys.argv:
-    pygments_style = 'sphinx_github_style.github_style.TDKStyle'
-else:
-    pygments_style = 'sphinx'
+# if 'html' in sys.argv:
+#     pygments_style = 'sphinx_github_style.TDKStyle'
+# else:
+#     pygments_style = 'sphinx'
 
 # ============================ Extensions ====================================
 

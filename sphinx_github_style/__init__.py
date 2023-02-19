@@ -15,6 +15,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 
     app.connect('doctree-resolved', add_linkcode_node_class)
     # app.connect('build-finished', save_generated_rst_files)
+
+    app.config.pygments_style = 'sphinx_github_style.github_style.TDKStyle'
     app.add_config_value('linkcode_link_text', '[source]', 'html')
     app.add_css_file('github_linkcode.css')
     app.add_lexer('TDK', TDKMethLexer)
