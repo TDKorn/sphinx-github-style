@@ -14,7 +14,6 @@
 import os
 import re
 import sys
-import shutil
 import inspect
 import subprocess
 import pkg_resources
@@ -39,14 +38,13 @@ sys.path.insert(0, root)
 
 author = 'Adam Korn'
 copyright = '2023, Adam Korn'
-project = None
-repo = None
-# pkg = None
-# Top Level Package Name
+project = 'sphinx-github-style'
+repo = project
+
+# Package Info
 pkg = pkg_resources.require(modname)[0]
 pkg_name = pkg.get_metadata('top_level.txt').strip()
 
-# The full version, including alpha/beta/rc tags
 # Simplify things by using the installed version
 version = pkg_resources.require(modname)[0].version
 release = version
@@ -54,7 +52,7 @@ release = version
 # ======================== General configuration ============================
 
 # Doc with root toctree
-master_doc = 'contents'  # .rst
+master_doc = 'contents'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -70,7 +68,10 @@ templates_path = ['_templates']
 html_static_path = ['_static']
 
 # Source File type
-source_suffix = '.rst'
+source_suffix = [
+    '.rst',
+    # '*.ipynb',
+]
 
 # LaTeX settings
 latex_elements = {  # Less yucky looking font
@@ -81,10 +82,10 @@ latex_elements = {  # Less yucky looking font
 \usepackage{inconsolata}
 ''',
 }
-
+from sphinx_github_style.github_style import TDKStyle
 # Add custom Pygments style if HTML
 if 'html' in sys.argv:
-    pygments_style = 'tdk_style.TDKStyle'
+    pygments_style = 'sphinx_github_style.github_style.TDKStyle'
 else:
     pygments_style = 'sphinx'
 
@@ -97,7 +98,8 @@ extensions = [
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.viewcode',
     'sphinx.ext.linkcode',
-    '_ext.linkcode_github'
+    'sphinx_github_style.meth_lexer',
+    'sphinx_github_style.add_linkcode_class',
 ]
 
 # ====================== Extra Settings for Extensions ========================
@@ -137,9 +139,10 @@ def read(file):
 
 # Source file(s) to convert for GitHub README/PyPi description
 #
-rst_files = list(map(
-    os.path.abspath,
-    ('README.rst', 'README_PyPi.rst', 'changelog.rst')))
+rst_files = []
+# list(map(
+#     os.path.abspath,
+#     ('README.rst', 'README_PyPi.rst', 'changelog.rst')))
 
 # Mapping of {"abs/path/to/file.rst": "File contents"}
 #
@@ -173,7 +176,7 @@ html_theme_options = {
     'prev_next_buttons_location': 'both',
 }
 
-html_logo = "_static/logo.png"
+# html_logo = "_static/logo.png"
 
 # ============================ Linkcode Extension Settings ============================
 #
@@ -186,7 +189,7 @@ linkcode_link_text = "View on GitHub"
 
 # Get the blob to link to on GitHub
 #
-linkcode_revision = "main"
+linkcode_revision = "master"
 
 try:
     # lock to commit number
@@ -200,10 +203,15 @@ try:
     linkcode_revision = tag
 
 except subprocess.CalledProcessError:
-    if linkcode_default_blob == 'last_tag':
-        cmd = "git describe --tags --abbrev=0"
-        tag = subprocess.check_output(cmd.split(" ")).strip().decode('utf-8')
-        linkcode_revision = tag
+    try:
+        if linkcode_default_blob == 'last_tag':
+            cmd = "git describe --tags --abbrev=0"
+            tag = subprocess.check_output(cmd.split(" ")).strip().decode('utf-8')
+            linkcode_revision = tag
+
+    except subprocess.CalledProcessError:
+        pass
+
 
 
 # Set the "Edit on GitHub" link to use the current commit
@@ -217,7 +225,8 @@ html_context = {
 # Source URL template; formatted + returned by linkcode_resolve
 linkcode_url = f"https://github.com/tdkorn/{repo}/blob/" \
                + linkcode_revision + "/{filepath}#L{linestart}-L{linestop}"
-
+user = html_context['github_user']
+l="https://github.com/{user}/{repo}/tree/{linkcode_revision}/{pkg}/{file}.py#L{start}-L{finish}}"
 
 def linkcode_resolve(domain, info):
     """Returns a link to the source code on GitHub, with appropriate lines highlighted
@@ -421,7 +430,7 @@ def skip(app, what, name, obj, would_skip, options):
 
 
 def setup(app):
-    if not on_rtd:  # and full remake was done?
-        app.connect('build-finished', save_generated_rst_files)
+    # if not on_rtd:  # and full remake was done?
+    #     app.connect('build-finished', save_generated_rst_files)
     app.connect('autodoc-skip-member', skip)
-    app.add_css_file("custom.css")
+    app.add_css_file("github_linkcode.css")
