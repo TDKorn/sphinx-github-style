@@ -13,9 +13,9 @@ Components
 |.linkcode_resolve|_
 |.add_linkcode_node_class|_
 
-* TDKStyle.py
-* TDKLexor  - TDKLexor
-* add default :func:`~.linkcode_resolve`
-* :func:`~.add_linkcode_node_class`
-* custom.css - Linkcode link icon + text
+* TDKStyle.py - Highlights code similar to Github Pretty Lights Dark 
+* TDKMethLexor - Highlights methods in code blocks
+* :func:`~.add_linkcode_node_class` - Updates ``linkcode`` nodes a new ``linkcode-link`` class to use for CSS styling separately from ``viewcode`` links
+* Add default :func:`~.linkcode_resolve`
+* ``github_style``.css - Linkcode link icon + text
 
