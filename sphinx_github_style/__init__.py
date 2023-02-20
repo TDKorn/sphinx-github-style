@@ -1,15 +1,14 @@
 import os
 import sys
+import sphinx
 import inspect
 import subprocess
 import pkg_resources
 from typing import Dict, Any
 from sphinx.application import Sphinx
-import sphinx
 
 __version__ = "0.0.1b4"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
-
 
 from .github_style import TDKStyle
 from .meth_lexer import TDKMethLexer
@@ -38,6 +37,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.config.html_context['github_version'] = get_linkcode_revision(app)
 
     linkcode_url = get_linkcode_url(app)
+
     def linkcode_resolve(domain, info):
         """Returns a link to the source code on GitHub, with appropriate lines highlighted
 
@@ -65,11 +65,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
             filepath = os.path.relpath(inspect.getsourcefile(obj), modpath)
             if filepath is None:
                 return
-        except Exception as e:
-            return print(  # ie. None
-                f'Exception raised while trying to retrieve module path for {obj}:',
-                e, sep='\n'
-            )
+        except Exception:
+            return None
 
         try:
             source, lineno = inspect.getsourcelines(obj)
@@ -81,7 +78,6 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 
         # Format link using the filepath of the source file plus the line numbers
         # Fix links with "../../../" or "..\\..\\..\\"
-        print("Filepath: ", filepath)
         filepath = '/'.join(filepath[filepath.find(pkg_name):].split('\\'))
 
         # Example of final link: # https://github.com/tdkorn/my-magento/blob/sphinx-docs/magento/utils.py#L355-L357
@@ -91,15 +87,6 @@ def setup(app: Sphinx) -> Dict[str, Any]:
             linestop=linestop
         )
         print(f"Final Link for {fullname}: {final_link}")
-
-        # Use the link to replace directives with links in the README for GitHub/PyPi
-        # if not on_rtd:
-        #     for rst_src in rst_sources:
-        #         replace_autodoc_refs_with_linkcode(
-        #             info=info,
-        #             link=final_link,
-        #             rst_src=rst_src
-        #         )
         return final_link
 
     app.config.linkcode_resolve = linkcode_resolve
@@ -144,9 +131,8 @@ def get_linkcode_revision(app: Sphinx):
 
 def get_linkcode_url(app):
     if not (url := app.config._raw_config.get("linkcode_url")):
-       raise ValueError("conf.py missing value for ``linkcode_url``")
+        raise ValueError("conf.py missing value for ``linkcode_url``")
 
     # Source link template; formatted by linkcode_resolve
     return f"{url.rstrip('/')}/blob/{get_linkcode_revision(app)}/" + \
            "{filepath}#L{linestart}-L{linestop}"
-
