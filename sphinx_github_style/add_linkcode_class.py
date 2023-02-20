@@ -26,5 +26,5 @@ def add_linkcode_node_class(app: Sphinx, doctree: Node, docname: str) -> None:
 
 def setup(app: Sphinx) -> Dict[str, Any]:
     app.connect('doctree-resolved', add_linkcode_node_class)
-    app.add_config_value('linkcode_link_text', '[source]', '')
+    app.add_config_value('linkcode_link_text', 'View on GitHub', '')
     return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
