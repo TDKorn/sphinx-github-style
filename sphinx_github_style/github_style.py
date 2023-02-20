@@ -1,3 +1,4 @@
+import sphinx
 from pygments.token import *
 from pygments.style import Style
 
@@ -136,3 +137,8 @@ class TDKStyle(Style):
         String.Symbol: pl["syntax-string"],
         Text: pl["syntax-markup-bold"],
     }
+
+def setup(app):
+    app.config.pygments_style = 'sphinx_github_style.TDKStyle'
+    app.add_css_file('github_linkcode.css')
+    return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
