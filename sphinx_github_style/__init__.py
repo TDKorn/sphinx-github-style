@@ -14,7 +14,7 @@ __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 
 from .add_linkcode_class import add_linkcode_node_class
-from .meth_lexer import TDKMethLexer, get_pkg_funcs
+from .meth_lexer import get_pkg_lexer
 from .github_style import TDKStyle
 
 
@@ -30,13 +30,14 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.connect('doctree-resolved', add_linkcode_node_class)
     # app.connect('build-finished', save_generated_rst_files)
 
+    app.add_config_value('pkg_name', pkg_name, 'html')
     app.add_config_value('linkcode_link_text', '[source]', 'html')
     app.add_config_value('linkcode_default_blob', 'master', 'html')
     app.config.pygments_style = 'sphinx_github_style.TDKStyle'
     app.config.html_context['github_version'] = get_linkcode_revision(app)
 
     app.add_css_file('github_linkcode.css')
-    app.add_lexer('python', update_lexer_keywords(pkg))
+    app.add_lexer('python', get_pkg_lexer(pkg_name))
 
     # app.add_lexer('python', TDKMethLexer)
 
@@ -101,20 +102,6 @@ def get_static_path(app):
     app.config.html_static_path.append(
         str(Path(__file__).parent.joinpath("_static").absolute())
     )
-
-
-def update_lexer_keywords(pkg):
-    from pygments.lexers.python import NumPyLexer
-    funcs = get_pkg_funcs(pkg)
-    file = Path(__file__).parent.joinpath("meth_lexer.py")
-    txt = file.read_text().replace(
-        "EXTRA_KEYWORDS = NumPyLexer.EXTRA_KEYWORDS",
-        f"EXTRA_KEYWORDS = {NumPyLexer.EXTRA_KEYWORDS.union(funcs)}")
-    with open(file, 'w') as f:
-        f.write(txt)
-
-    from .meth_lexer import TDKMethLexer
-    return TDKMethLexer
 
 def get_linkcode_revision(app: Sphinx):
     # Get the blob to link to on GitHub

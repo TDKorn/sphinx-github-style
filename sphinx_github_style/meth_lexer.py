@@ -1,8 +1,9 @@
 from pygments.lexers.python import NumPyLexer
-from inspect import getmembers, getmodule, isfunction, ismethod, ismodule, isclass
+from inspect import getmembers, isfunction, ismethod, ismodule, isclass
 from sphinx.application import Sphinx
-import sphinx_github_style
+from typing import Type
 import types
+
 
 def get_pkg_funcs(pkg: types.ModuleType):
     # Get funcs/meths defined in pkg.__init__
@@ -16,6 +17,7 @@ def get_pkg_funcs(pkg: types.ModuleType):
             funcs_meths += get_funcs(_class)
     # Set of all funcs/meths contained in modules used by package
     return set(funcs_meths)
+
 
 def get_funcs(of):
     members = getmembers(of, isfunction or ismethod)
@@ -32,9 +34,14 @@ class TDKMethLexer(NumPyLexer):
 
     EXTRA_KEYWORDS = NumPyLexer.EXTRA_KEYWORDS
 
+
+def get_pkg_lexer(pkg_name: str) -> Type[TDKMethLexer]:
+    pkg = __import__(pkg_name)
+    funcs = get_pkg_funcs(pkg)
+    TDKMethLexer.EXTRA_KEYWORDS = TDKMethLexer.EXTRA_KEYWORDS.union(funcs)
+    return TDKMethLexer
+
+
 def setup(app: Sphinx):
-    if pkg := app.config._raw_config.get('pkg'):
-        funcs = get_pkg_funcs(pkg)
-        lexer = TDKMethLexer
-        lexer.EXTRA_KEYWORDS.update(funcs)
-        app.add_lexer('python', lexer)
+    pkg_name = app.config._raw_config['pkg_name']
+    app.add_lexer('python', get_pkg_lexer(pkg_name))
