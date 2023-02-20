@@ -9,7 +9,7 @@ from typing import Dict, Any
 from sphinx.application import Sphinx
 
 
-__version__ = "0.0.1b5"
+__version__ = "0.0.1b6"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 
@@ -25,20 +25,17 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     pkg = pkg_resources.require(modname)[0]
     pkg_name = pkg.get_metadata('top_level.txt').strip()
 
-    app.setup_extension('sphinx.ext.linkcode')
+    app.add_config_value('pkg_name', pkg_name, 'html')
     app.connect("builder-inited", get_static_path)
-    app.connect('doctree-resolved', add_linkcode_node_class)
     # app.connect('build-finished', save_generated_rst_files)
 
-    app.add_config_value('pkg_name', pkg_name, 'html')
-    app.add_config_value('linkcode_link_text', '[source]', 'html')
+    app.setup_extension('sphinx.ext.linkcode')
+    app.setup_extension('sphinx_github_style.add_linkcode_class')
+    app.setup_extension('sphinx_github_style.github_style')
+    app.setup_extension('sphinx_github_style.meth_lexer')
+
     app.add_config_value('linkcode_default_blob', 'master', 'html')
-    app.config.pygments_style = 'sphinx_github_style.TDKStyle'
     app.config.html_context['github_version'] = get_linkcode_revision(app)
-
-    app.add_css_file('github_linkcode.css')
-    app.add_lexer('python', TDKMethLexer.get_pkg_lexer(pkg_name))
-
     linkcode_url = get_linkcode_url(app)
 
     def linkcode_resolve(domain, info):
@@ -101,6 +98,7 @@ def get_static_path(app):
         str(Path(__file__).parent.joinpath("_static").absolute())
     )
 
+
 def get_linkcode_revision(app: Sphinx):
     # Get the blob to link to on GitHub
     linkcode_revision = "master"
@@ -121,7 +119,6 @@ def get_linkcode_revision(app: Sphinx):
         cmd = "git describe --exact-match --tags " + head
         tag = subprocess.check_output(cmd.split(" ")).strip().decode('utf-8')
         linkcode_revision = tag
-
 
     except subprocess.CalledProcessError:
         if app.config._raw_config.get('linkcode_default_blob') == 'last_tag':
