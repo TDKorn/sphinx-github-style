@@ -9,12 +9,12 @@ from typing import Dict, Any
 from sphinx.application import Sphinx
 
 
-__version__ = "0.0.1b4"
+__version__ = "0.0.1b5"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 
 from .add_linkcode_class import add_linkcode_node_class
-from .meth_lexer import TDKMethLexer
+from .meth_lexer import TDKMethLexer, get_pkg_funcs
 from .github_style import TDKStyle
 
 
@@ -36,7 +36,9 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.config.html_context['github_version'] = get_linkcode_revision(app)
 
     app.add_css_file('github_linkcode.css')
-    app.add_lexer('python', TDKMethLexer)
+    app.add_lexer('python', update_lexer_keywords(pkg))
+
+    # app.add_lexer('python', TDKMethLexer)
 
     linkcode_url = get_linkcode_url(app)
 
@@ -99,6 +101,20 @@ def get_static_path(app):
     app.config.html_static_path.append(
         str(Path(__file__).parent.joinpath("_static").absolute())
     )
+
+
+def update_lexer_keywords(pkg):
+    from pygments.lexers.python import NumPyLexer
+    funcs = get_pkg_funcs(pkg)
+    file = Path(__file__).parent.joinpath("meth_lexer.py")
+    txt = file.read_text().replace(
+        "EXTRA_KEYWORDS = NumPyLexer.EXTRA_KEYWORDS",
+        f"EXTRA_KEYWORDS = {NumPyLexer.EXTRA_KEYWORDS.union(funcs)}")
+    with open(file, 'w') as f:
+        f.write(txt)
+
+    from .meth_lexer import TDKMethLexer
+    return TDKMethLexer
 
 def get_linkcode_revision(app: Sphinx):
     # Get the blob to link to on GitHub
