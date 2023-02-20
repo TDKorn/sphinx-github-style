@@ -108,7 +108,6 @@ extensions = [
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'requests': ('https://requests.readthedocs.io/en/latest/', None),
-    'docutils': ('https://docutils.sourceforge.io/docs/', None),
 }
 
 # ~~~~ AutoSectionLabel ~~~~
