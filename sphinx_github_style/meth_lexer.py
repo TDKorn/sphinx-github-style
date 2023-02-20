@@ -25,7 +25,7 @@ def get_funcs(of):
 
 
 class TDKMethLexer(NumPyLexer):
-    """Adds syntax highlighting for a python Package's methods
+    """Adds syntax highlighting for methods and functions within a python Package
 
     """
     name = 'TDK'
@@ -34,14 +34,14 @@ class TDKMethLexer(NumPyLexer):
 
     EXTRA_KEYWORDS = NumPyLexer.EXTRA_KEYWORDS
 
-
-def get_pkg_lexer(pkg_name: str) -> Type[TDKMethLexer]:
-    pkg = __import__(pkg_name)
-    funcs = get_pkg_funcs(pkg)
-    TDKMethLexer.EXTRA_KEYWORDS = TDKMethLexer.EXTRA_KEYWORDS.union(funcs)
-    return TDKMethLexer
+    @classmethod
+    def get_pkg_lexer(cls, pkg_name: str) -> Type["TDKMethLexer"]:
+        pkg = __import__(pkg_name)
+        funcs = get_pkg_funcs(pkg)
+        cls.EXTRA_KEYWORDS.update(funcs)
+        return cls
 
 
 def setup(app: Sphinx):
     pkg_name = app.config._raw_config['pkg_name']
-    app.add_lexer('python', get_pkg_lexer(pkg_name))
+    app.add_lexer('python', TDKMethLexer.get_pkg_lexer(pkg_name))

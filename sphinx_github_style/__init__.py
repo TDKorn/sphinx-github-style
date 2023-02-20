@@ -14,7 +14,7 @@ __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 
 from .add_linkcode_class import add_linkcode_node_class
-from .meth_lexer import get_pkg_lexer
+from .meth_lexer import TDKMethLexer
 from .github_style import TDKStyle
 
 
@@ -37,9 +37,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.config.html_context['github_version'] = get_linkcode_revision(app)
 
     app.add_css_file('github_linkcode.css')
-    app.add_lexer('python', get_pkg_lexer(pkg_name))
-
-    # app.add_lexer('python', TDKMethLexer)
+    app.add_lexer('python', TDKMethLexer.get_pkg_lexer(pkg_name))
 
     linkcode_url = get_linkcode_url(app)
 
