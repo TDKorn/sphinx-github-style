@@ -9,7 +9,7 @@ from typing import Dict, Any
 from sphinx.application import Sphinx
 
 
-__version__ = "0.0.1b4"
+__version__ = "0.0.1b5"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 
@@ -30,13 +30,14 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.connect('doctree-resolved', add_linkcode_node_class)
     # app.connect('build-finished', save_generated_rst_files)
 
+    app.add_config_value('pkg_name', pkg_name, 'html')
     app.add_config_value('linkcode_link_text', '[source]', 'html')
     app.add_config_value('linkcode_default_blob', 'master', 'html')
     app.config.pygments_style = 'sphinx_github_style.TDKStyle'
     app.config.html_context['github_version'] = get_linkcode_revision(app)
 
     app.add_css_file('github_linkcode.css')
-    app.add_lexer('python', TDKMethLexer)
+    app.add_lexer('python', TDKMethLexer.get_pkg_lexer(pkg_name))
 
     linkcode_url = get_linkcode_url(app)
 
