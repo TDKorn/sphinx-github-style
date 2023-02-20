@@ -9,7 +9,7 @@ from typing import Dict, Any
 from sphinx.application import Sphinx
 
 
-__version__ = "0.0.1b6"
+__version__ = "0.0.1b7"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 
