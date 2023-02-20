@@ -1,3 +1,5 @@
+import copy
+
 from pygments.lexers.python import NumPyLexer
 from inspect import getmembers, isfunction, ismethod, ismodule, isclass
 from sphinx.application import Sphinx
@@ -32,13 +34,13 @@ class TDKMethLexer(NumPyLexer):
     url = 'https://github.com/TDKorn'
     aliases = ['tdk']
 
-    EXTRA_KEYWORDS = NumPyLexer.EXTRA_KEYWORDS
+    EXTRA_KEYWORDS = {}
 
     @classmethod
     def get_pkg_lexer(cls, pkg_name: str) -> Type["TDKMethLexer"]:
         pkg = __import__(pkg_name)
         funcs = get_pkg_funcs(pkg)
-        cls.EXTRA_KEYWORDS.update(funcs)
+        cls.EXTRA_KEYWORDS = funcs
         return cls
 
 
