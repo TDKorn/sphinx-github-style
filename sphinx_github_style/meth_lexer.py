@@ -1,4 +1,3 @@
-import copy
 import types
 from typing import Type
 from sphinx.application import Sphinx
@@ -45,5 +44,5 @@ class TDKMethLexer(NumPyLexer):
 
 def setup(app: Sphinx):
     # Get pkg_name from conf.py; fallback to pkg_name set by __init__.py
-    pkg_name = app.config._raw_config.get('pkg_name', app.config.pkg_name)
+    pkg_name = app.config._raw_config.get('pkg_name', getattr(app.config, "pkg_name", None))
     app.add_lexer('python', TDKMethLexer.get_pkg_lexer(pkg_name))
