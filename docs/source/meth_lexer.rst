@@ -6,4 +6,6 @@ The ``meth_lexer`` module
 .. automodule:: sphinx_github_style.meth_lexer
    :members:
    :undoc-members:
+   :exclude-members: setup
+
 

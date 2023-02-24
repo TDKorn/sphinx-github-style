@@ -16,3 +16,8 @@ code.literal {
 .wy-nav-top {
     background: #747373;
 }
+/* Change viewcode "[source]" link position and colour (blue) */
+.rst-content .viewcode-back, .rst-content .viewcode-link {
+    color: #00e;
+    padding-left: 12px;
+}

@@ -6,9 +6,11 @@ The ``sphinx_github_style`` Package
    :members:
    :undoc-members:
 
+|
 
 .. toctree::
    :caption: Modules
+   :titlesonly:
 
    add_linkcode_class
    github_style

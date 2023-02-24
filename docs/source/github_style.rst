@@ -1,8 +1,10 @@
 The ``github_style`` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-GitHub Pygments Style Dark Theme
+:class:`~.TDKStyle` - GitHub Dark Theme Pygments Style
+===========================================================
 
 .. automodule:: sphinx_github_style.github_style
    :members:
    :undoc-members:
+   :exclude-members: setup
