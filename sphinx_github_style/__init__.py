@@ -10,7 +10,7 @@ from sphinx.errors import ExtensionError
 from typing import Dict, Any, Optional, Callable
 
 
-__version__ = "0.0.1b13"
+__version__ = "0.0.1b16"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 
@@ -40,7 +40,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     setattr(app.config, 'html_context', html_context)
 
     linkcode_url = get_linkcode_url(app)
-    linkcode_func = getattr(app.config, 'linkcode_resolve', None)
+    linkcode_func = get_conf_val(app, "linkcode_resolve")
 
     if not callable(linkcode_func):
         print(
@@ -74,7 +74,7 @@ def get_linkcode_revision(app: Sphinx) -> str:
        * ``last_tag``: links to the most recently tagged commit; if no tags exist, uses ``head``
        * ``blob``: links to any blob you want, for example ``"master"`` or ``"v2.0.1"``
     """
-    blob = getattr(app.config, "linkcode_blob", "head")
+    blob = get_conf_val(app, "linkcode_blob")
     if blob == "head":
         return get_head()
     if blob == 'last_tag':
@@ -127,8 +127,8 @@ def get_linkcode_url(app: Sphinx) -> str:
 
     Formatted into the final link by ``linkcode_resolve()``
     """
-    context = getattr(app.config, 'html_context', None)
-    url = app.config._raw_config.get("linkcode_url", None)
+    context = get_conf_val(app, "html_context")
+    url = get_conf_val(app, "linkcode_url")
 
     if url is None:
         if context is None or not all(context.get(key) for key in ("github_user", "github_repo")):
@@ -208,3 +208,13 @@ def get_linkcode_resolve(linkcode_url: str, pkg_name: str, modpath: str) -> Call
         return final_link
 
     return linkcode_resolve
+
+
+def get_conf_val(app: Sphinx, attr: str, default: Any = None) -> Any:
+    """Retrieve values from ``conf.py``
+
+    Currently unclear why non-default ``conf.py`` values aren't being updated in the config attributes (?)
+    So checking for values in the ``_raw_config`` dict first, since they *do* get updated
+    """
+    return app.config._raw_config.get(attr, getattr(app.config, attr, default))
+
