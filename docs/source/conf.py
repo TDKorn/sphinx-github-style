@@ -92,8 +92,7 @@ extensions = [
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.viewcode',
     'sphinx.ext.linkcode',
-    'sphinx_github_style.meth_lexer',
-    'sphinx_github_style.add_linkcode_class',
+    'sphinx_github_style',
 ]
 
 # ====================== Extra Settings for Extensions ========================
