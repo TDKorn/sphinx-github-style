@@ -96,7 +96,7 @@ html_theme_options = {
     'prev_next_buttons_location': 'both',
 }
 
-# html_logo = "_static/logo.png"
+html_logo = "_static/logo_square.ico"
 
 # Set the "Edit on GitHub" link to use the current commit
 html_context = {
@@ -175,3 +175,4 @@ def skip(app, what, name, obj, would_skip, options):
 
 def setup(app):
     app.connect('autodoc-skip-member', skip)
+    app.add_css_file("custom.css")
