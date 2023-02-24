@@ -1,10 +1,9 @@
-import copy
 import types
 from typing import Type
+from . import get_conf_val
 from sphinx.application import Sphinx
 from pygments.lexers.python import NumPyLexer
 from inspect import getmembers, isfunction, ismethod, ismodule, isclass
-
 
 def get_pkg_funcs(pkg: types.ModuleType):
     # Get funcs/meths defined in pkg.__init__
@@ -45,5 +44,5 @@ class TDKMethLexer(NumPyLexer):
 
 def setup(app: Sphinx):
     # Get pkg_name from conf.py; fallback to pkg_name set by __init__.py
-    pkg_name = app.config._raw_config.get('pkg_name', app.config.pkg_name)
+    pkg_name = get_conf_val(app, "pkg_name")
     app.add_lexer('python', TDKMethLexer.get_pkg_lexer(pkg_name))
