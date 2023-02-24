@@ -117,6 +117,17 @@ Configuration Variables
 
 Add any of the following configuration variables to your ``conf.py``
 
+``pkg_name``
+^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   pkg_name: str
+
+
+The name of the top-level package. For this repo, it would be ``sphinx_github_style``
+
+
 ``linkcode_blob``
 ^^^^^^^^^^^^^^^^^^^
 

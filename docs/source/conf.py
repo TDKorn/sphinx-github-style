@@ -23,8 +23,6 @@ on_rtd = os.environ.get('READTHEDOCS') == 'True'
 
 # Configure paths
 root = os.path.abspath('../../')
-modpath = root
-
 sys.path.append(os.path.abspath('.'))
 sys.path.insert(0, root)
 
@@ -39,12 +37,11 @@ project = 'sphinx-github-style'
 repo = project
 
 # Package Info
-modname = os.path.basename(modpath)
-pkg = pkg_resources.require(modname)[0]
+pkg = pkg_resources.require(project)[0]
 pkg_name = pkg.get_metadata('top_level.txt').strip()
 
 # Simplify things by using the installed version
-version = pkg_resources.require(modname)[0].version
+version = pkg.version
 release = version
 
 # ======================== General configuration ============================

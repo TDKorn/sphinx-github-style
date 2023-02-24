@@ -3,16 +3,14 @@ import sys
 import sphinx
 import inspect
 import subprocess
-import pkg_resources
 from pathlib import Path
 from sphinx.application import Sphinx
 from sphinx.errors import ExtensionError
 from typing import Dict, Any, Optional, Callable
 
 
-__version__ = "0.0.1b16"
+__version__ = "1.0.1b0"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
-
 
 from .add_linkcode_class import add_linkcode_node_class
 from .meth_lexer import TDKMethLexer
@@ -20,15 +18,10 @@ from .github_style import TDKStyle
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
-    modpath = os.path.abspath('../')
-    modname = os.path.basename(modpath)
-    pkg = pkg_resources.require(modname)[0]
-    pkg_name = pkg.get_metadata('top_level.txt').strip()
-
     app.connect("builder-inited", add_static_path)
 
-    app.add_config_value('pkg_name', pkg_name, 'html')
     app.add_config_value('linkcode_blob', 'head', True)
+    app.add_config_value('pkg_name', None, '')
 
     app.setup_extension('sphinx_github_style.add_linkcode_class')
     app.setup_extension('sphinx_github_style.github_style')
@@ -47,9 +40,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
             "Function `linkcode_resolve` not found in ``conf.py``; "
             "using default function from ``sphinx_github_style``"
         )
-        linkcode_func = get_linkcode_resolve(
-            linkcode_url, pkg_name, modpath
-        )
+        linkcode_func = get_linkcode_resolve(linkcode_url)
 
     app.config.linkcode_resolve = linkcode_func
     return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
@@ -150,7 +141,7 @@ def get_linkcode_url(app: Sphinx) -> str:
     return url
 
 
-def get_linkcode_resolve(linkcode_url: str, pkg_name: str, modpath: str) -> Callable:
+def get_linkcode_resolve(linkcode_url: str) -> Callable:
     """Defines and returns a ``linkcode_resolve`` function for your package
 
     Used by default if ``linkcode_resolve`` isn't defined in ``conf.py``
@@ -177,11 +168,15 @@ def get_linkcode_resolve(linkcode_url: str, pkg_name: str, modpath: str) -> Call
         for part in fullname.split('.'):
             try:
                 obj = getattr(obj, part)
-            except Exception:
+            except AttributeError:
                 return None
 
+        pkg_name = modname.split('.')[0]
+        pkg_dir = sys.modules.get(pkg_name).__file__
+        repo_dir = Path(pkg_dir).parent.parent
+
         try:
-            filepath = os.path.relpath(inspect.getsourcefile(obj), modpath)
+            filepath = os.path.relpath(inspect.getsourcefile(obj), repo_dir)
             if filepath is None:
                 return
         except Exception:
@@ -190,7 +185,6 @@ def get_linkcode_resolve(linkcode_url: str, pkg_name: str, modpath: str) -> Call
         try:
             source, lineno = inspect.getsourcelines(obj)
         except OSError:
-            print(f'failed to get source lines for {obj}')
             return None
         else:
             linestart, linestop = lineno, lineno + len(source) - 1

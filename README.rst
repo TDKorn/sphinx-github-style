@@ -3,7 +3,7 @@
 ..  Author: TDKorn (Adam Korn)
 
 .. |.get_linkcode_resolve| replace:: ``get_linkcode_resolve()``
-.. _.get_linkcode_resolve: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/__init__.py#L150-L207
+.. _.get_linkcode_resolve: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/__init__.py#L153-L210
 .. |.add_linkcode_node_class| replace:: ``add_linkcode_node_class()``
 .. _.add_linkcode_node_class: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/add_linkcode_class.py#L9-L24
 .. |.TDKStyle| replace:: ``TDKStyle``
@@ -141,6 +141,16 @@ Configuration Variables
 =========================
 
 Add any of the following configuration variables to your ``conf.py``
+
+``pkg_name``
+^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   pkg_name: str
+
+
+The name of the top-level package. For this repo, it would be ``sphinx_github_style``
 
 ``linkcode_blob``
 ^^^^^^^^^^^^^^^^^^^

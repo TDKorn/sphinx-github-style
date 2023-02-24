@@ -1,9 +1,9 @@
-import copy
 import types
 from typing import Type
 from sphinx.application import Sphinx
 from pygments.lexers.python import NumPyLexer
 from inspect import getmembers, isfunction, ismethod, ismodule, isclass
+from sphinx.errors import ExtensionError
 
 
 def get_pkg_funcs(pkg: types.ModuleType):
@@ -44,6 +44,7 @@ class TDKMethLexer(NumPyLexer):
 
 
 def setup(app: Sphinx):
-    # Get pkg_name from conf.py; fallback to pkg_name set by __init__.py
-    pkg_name = app.config._raw_config.get('pkg_name', app.config.pkg_name)
+    pkg_name = app.config._raw_config.get("pkg_name", getattr(app.config, "pkg_name"))
+    if pkg_name is None:
+        raise ExtensionError("`pkg_name` is missing from conf.py")
     app.add_lexer('python', TDKMethLexer.get_pkg_lexer(pkg_name))
