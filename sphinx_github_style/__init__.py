@@ -10,7 +10,7 @@ from sphinx.errors import ExtensionError
 from typing import Dict, Any, Optional, Callable
 
 
-__version__ = "0.0.1b9"
+__version__ = "0.0.1b13"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 

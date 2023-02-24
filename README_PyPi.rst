@@ -2,38 +2,36 @@
 ..  Description: A Sphinx extension to add GitHub source code links and syntax highlighting
 ..  Author: TDKorn (Adam Korn)
 
-.. |.get_linkcode_resolve| replace:: ``get_linkcode_resolve()``
+.. |.get_linkcode_resolve| replace:: get_linkcode_resolve()
 .. _.get_linkcode_resolve: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/__init__.py#L150-L207
-.. |.add_linkcode_node_class| replace:: ``add_linkcode_node_class()``
+.. |.add_linkcode_node_class| replace:: add_linkcode_node_class()
 .. _.add_linkcode_node_class: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/add_linkcode_class.py#L9-L24
-.. |.TDKStyle| replace:: ``TDKStyle``
+.. |.TDKStyle| replace:: TDKStyle
 .. _.TDKStyle: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/github_style.py#L44-L139
-.. |.TDKMethLexor| replace:: ``TDKMethLexor``
+.. |.TDKMethLexor| replace:: TDKMethLexor
 .. _.TDKMethLexor: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/meth_lexer.py#L28-L43
-.. |.github_style| replace:: ``github_style.css``
+.. |.github_style| replace:: github_style.css
 .. _.github_style: https://github.com/tdkorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/_static/github_style.css
 .. |RTD| replace:: ReadTheDocs
 .. _RTD: https://sphinx-github-style.readthedocs.io/en/latest/
+.. |Note| replace:: 📝 **Note**
 .. |docs| replace:: **Explore the docs »**
 .. _docs: https://sphinx-github-style.readthedocs.io/en/latest/
 
 
-.. raw:: html
+sphinx-github-style
+-------------------
 
-   <div align="center">
-
-
-.. image:: docs/source/_static/logo_square_grey_blue.png
+.. image:: https://i.imgur.com/v348dOW.png
    :alt: Sphinx GitHub Style: GitHub Integration and Pygments Style for Sphinx Documentation
-   :width: 25%
-
-.. raw:: html
-
-   <h1>sphinx-github-style</h1>
+   :width: 50%
+   :align: center
 
 GitHub source code links and syntax highlighting for Sphinx docs
 
 |docs|_
+
+|
 
 .. image:: https://img.shields.io/pypi/v/sphinx-github-style?color=eb5202
    :target: https://pypi.org/project/sphinx-github-style/
@@ -50,12 +48,7 @@ GitHub source code links and syntax highlighting for Sphinx docs
     :target: https://sphinx-github-style.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
-.. raw:: html
-
-   </div>
-   <br/>
-   <br/>
-
+|
 
 About
 ~~~~~~~~~~~~~
@@ -63,6 +56,7 @@ About
 ``sphinx-github-style`` is a Sphinx extension that makes your docs look like and link to GitHub
 
 ...
+
 
 GitHub Source Code Links
 ===============================
@@ -82,30 +76,21 @@ GitHub Source Code Links
 
 |
 
-.. raw:: html
-
-   <table>
-      <tr align="left">
-         <th>📝 Note</th>
-      </tr>
-      <tr>
-         <td>
-
-These links can be used with/instead of the links added by ``sphinx.ext.viewcode``
-
-* They use a newly added ``linkcode-link`` class which can be styled using CSS
-
-
-.. raw:: html
-
-   </td></tr>
-   </table>
-
++--------------------------------------------+
+| |Note|                                     |
++============================================+
+| These links can be used with/instead of    |
+| the links added by ``sphinx.ext.viewcode`` |
+|                                            |
+| * They use a newly added ``linkcode-link`` |
+|   class which can be styled using CSS      |
++--------------------------------------------+
 
 |
 
+
 Syntax Highlighting
-====================
+=====================
 
 ``sphinx-github-style`` **also contains a** ``Pygments`` **style to highlight code in your documentation similar to GitHub:**
 
