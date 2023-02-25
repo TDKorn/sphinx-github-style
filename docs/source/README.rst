@@ -110,23 +110,22 @@ Add the extension to your ``conf.py``
        "sphinx_github_style",
    ]
 
-...
-
-Configuration Variables
-=========================
+Optional Configuration Variables
+===================================
 
 Add any of the following configuration variables to your ``conf.py``
 
-``pkg_name``
+``top_level``
 ^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: python
 
-   pkg_name: str
+   top_level: str
 
 
 The name of the top-level package. For this repo, it would be ``sphinx_github_style``
 
+...
 
 ``linkcode_blob``
 ^^^^^^^^^^^^^^^^^^^

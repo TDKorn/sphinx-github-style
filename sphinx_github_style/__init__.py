@@ -3,14 +3,16 @@ import sys
 import sphinx
 import inspect
 import subprocess
+import pkg_resources
 from pathlib import Path
 from sphinx.application import Sphinx
 from sphinx.errors import ExtensionError
 from typing import Dict, Any, Optional, Callable
 
 
-__version__ = "1.0.1b0"
+__version__ = "1.0.1b3"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
+
 
 from .add_linkcode_class import add_linkcode_node_class
 from .meth_lexer import TDKMethLexer
@@ -21,7 +23,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.connect("builder-inited", add_static_path)
 
     app.add_config_value('linkcode_blob', 'head', True)
-    app.add_config_value('pkg_name', None, '')
+    app.add_config_value('top_level', get_top_level(app), '')
 
     app.setup_extension('sphinx_github_style.add_linkcode_class')
     app.setup_extension('sphinx_github_style.github_style')
@@ -130,7 +132,7 @@ def get_linkcode_url(app: Sphinx) -> str:
                 "sphinx-github-style: config value ``linkcode_url`` is missing. "
                 "Creating link from ``html_context`` values..."
             )
-            blob = context['github_version']    # Added by setup() above
+            blob = context['github_version']  # Added by setup() above
             url = f"https://github.com/{context['github_user']}/{context['github_repo']}/{blob}/"
 
     else:
@@ -146,6 +148,7 @@ def get_linkcode_resolve(linkcode_url: str) -> Callable:
 
     Used by default if ``linkcode_resolve`` isn't defined in ``conf.py``
     """
+
     def linkcode_resolve(domain, info):
         """Returns a link to the source code on GitHub, with appropriate lines highlighted
 
@@ -202,6 +205,41 @@ def get_linkcode_resolve(linkcode_url: str) -> Callable:
         return final_link
 
     return linkcode_resolve
+
+
+def get_top_level(app: Sphinx):
+    # Retrieve conf.py value
+    top_level = get_conf_val(app, "top_level")
+
+    if top_level is None:
+        # If not defined, try retrieving with pkg_resources
+        project_dir = Path(app.srcdir).parent.parent
+        project_name = os.path.basename(project_dir)
+        pkg = None
+
+        try:
+            pkg = pkg_resources.require(project_name)[0]
+
+        except pkg_resources.DistributionNotFound:
+            # Try `html_context` repo name in case project structure isn't repo/docs/source
+            project_name = get_conf_val(app, "html_context", {}).get("github_repo")
+
+            if project_name is not None:
+                try:
+                    pkg = pkg_resources.require(project_name)[0]
+
+                except pkg_resources.DistributionNotFound:
+                    pass
+
+        finally:
+            if pkg is None:
+                raise ExtensionError(
+                        "sphinx_github_style: Unable to determine top-level package")
+
+        top_level = pkg.get_metadata('top_level.txt').strip()
+        app.config._raw_config['top_level'] = top_level
+
+    return top_level
 
 
 def get_conf_val(app: Sphinx, attr: str, default: Any = None) -> Any:
