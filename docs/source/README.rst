@@ -3,7 +3,7 @@
 ..  Author: TDKorn (Adam Korn)
 
 .. |.github_style| replace:: ``github_style.css``
-.. _.github_style: https://github.com/tdkorn/sphinx-github-style/tree/v1.0.0/sphinx_github_style/_static/github_style.css
+.. _.github_style: https://github.com/tdkorn/sphinx-github-style/tree/v1.0.1/sphinx_github_style/_static/github_style.css
 
 
 .. raw:: html
@@ -186,7 +186,7 @@ Noteworthy Components
 ~~~~~~~~~~~~~~~~~~~~~
 
 * :class:`~.TDKStyle` - Pygments Style for syntax highlighting similar to Github Pretty Lights Dark Theme
-* :class:`~.TDKMethLexor` - Pygments Lexor to add syntax highlighting to methods
+* :class:`~.TDKMethLexer` - Pygments Lexer to add syntax highlighting to methods
 * :func:`~.get_linkcode_resolve` - to link to GitHub source code using ``sphinx.ext.linkcode``
 * :func:`~.add_linkcode_node_class` - adds a new ``linkcode-link`` class, allowing for CSS styling separately from ``viewcode`` links
 * |.github_style|_ - CSS styling for linkcode links (icon + text)

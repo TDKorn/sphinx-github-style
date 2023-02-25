@@ -3,15 +3,15 @@
 ..  Author: TDKorn (Adam Korn)
 
 .. |.get_linkcode_resolve| replace:: get_linkcode_resolve()
-.. _.get_linkcode_resolve: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/__init__.py#L153-L210
+.. _.get_linkcode_resolve: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.1/sphinx_github_style/__init__.py#L146-L207
 .. |.add_linkcode_node_class| replace:: add_linkcode_node_class()
-.. _.add_linkcode_node_class: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/add_linkcode_class.py#L9-L24
+.. _.add_linkcode_node_class: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.1/sphinx_github_style/add_linkcode_class.py#L9-L24
 .. |.TDKStyle| replace:: TDKStyle
-.. _.TDKStyle: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/github_style.py#L44-L139
-.. |.TDKMethLexor| replace:: TDKMethLexor
-.. _.TDKMethLexor: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/meth_lexer.py#L28-L43
+.. _.TDKStyle: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.1/sphinx_github_style/github_style.py#L44-L139
+.. |.TDKMethLexer| replace:: TDKMethLexer
+.. _.TDKMethLexer: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.1/sphinx_github_style/meth_lexer.py#L27-L42
 .. |.github_style| replace:: github_style.css
-.. _.github_style: https://github.com/tdkorn/sphinx-github-style/blob/v1.0.0/sphinx_github_style/_static/github_style.css
+.. _.github_style: https://github.com/tdkorn/sphinx-github-style/blob/v1.0.1/sphinx_github_style/_static/github_style.css
 .. |RTD| replace:: ReadTheDocs
 .. _RTD: https://sphinx-github-style.readthedocs.io/en/latest/
 .. |Note| replace:: 📝 **Note**
@@ -203,7 +203,7 @@ Noteworthy Components
 ~~~~~~~~~~~~~~~~~~~~~
 
 * |.TDKStyle|_ - Pygments Style for syntax highlighting similar to Github Pretty Lights Dark Theme
-* |.TDKMethLexor|_ - Pygments Lexor to add syntax highlighting to methods
+* |.TDKMethLexer|_ - Pygments Lexor to add syntax highlighting to methods
 * |.get_linkcode_resolve|_ - to link to GitHub source code using ``sphinx.ext.linkcode``
 * |.add_linkcode_node_class|_ - adds a new ``linkcode-link`` class, allowing for CSS styling separately from ``viewcode`` links
 * |.github_style|_ - CSS styling for linkcode links (icon + text)
