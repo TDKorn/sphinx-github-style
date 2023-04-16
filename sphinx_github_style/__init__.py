@@ -9,10 +9,8 @@ from sphinx.application import Sphinx
 from sphinx.errors import ExtensionError
 from typing import Dict, Any, Optional, Callable
 
-
 __version__ = "1.0.1"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
-
 
 from .add_linkcode_class import add_linkcode_node_class
 from .meth_lexer import TDKMethLexer
@@ -30,11 +28,12 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.setup_extension('sphinx_github_style.meth_lexer')
     app.setup_extension('sphinx.ext.linkcode')
 
-    html_context = getattr(app.config, 'html_context', {})
-    html_context['github_version'] = get_linkcode_revision(app)
-    setattr(app.config, 'html_context', html_context)
-
-    linkcode_url = get_linkcode_url(app)
+    linkcode_blob = get_conf_val(app, "linkcode_blob")
+    linkcode_url = get_linkcode_url(
+        blob=get_linkcode_revision(linkcode_blob),
+        url=get_conf_val(app, 'linkcode_url'),
+        context=get_conf_val(app, 'html_context'),
+    )
     linkcode_func = get_conf_val(app, "linkcode_resolve")
 
     if not callable(linkcode_func):
@@ -44,7 +43,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
         )
         linkcode_func = get_linkcode_resolve(linkcode_url)
 
-    app.config.linkcode_resolve = linkcode_func
+    set_conf_val(app, 'linkcode_resolve', linkcode_func)
     return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
 
 
@@ -55,19 +54,17 @@ def add_static_path(app) -> None:
     )
 
 
-def get_linkcode_revision(app: Sphinx) -> str:
+def get_linkcode_revision(blob: str) -> str:
     """Get the blob to link to on GitHub
 
     .. note::
 
-       The generated links depend on  the ``conf.py`` value of ``linkcode_blob``,
-       which can be any of ``"head"``, ``"last_tag"``, or ``"{blob}"``
+       The value of ``blob`` can be any of ``"head"``, ``"last_tag"``, or ``"{blob}"``
 
        * ``head`` (default): links to the most recent commit hash; if this commit is tagged, uses the tag instead
        * ``last_tag``: links to the most recently tagged commit; if no tags exist, uses ``head``
        * ``blob``: links to any blob you want, for example ``"master"`` or ``"v2.0.1"``
     """
-    blob = get_conf_val(app, "linkcode_blob")
     if blob == "head":
         return get_head()
     if blob == 'last_tag':
@@ -115,14 +112,11 @@ def get_last_tag() -> str:
         raise RuntimeError("No tags exist for the repo...(?)") from e
 
 
-def get_linkcode_url(app: Sphinx) -> str:
+def get_linkcode_url(blob: Optional[str] = None, context: Optional[Dict] = None, url: Optional[str] = None) -> str:
     """Get the template URL for linking to highlighted GitHub source code
 
     Formatted into the final link by ``linkcode_resolve()``
     """
-    context = get_conf_val(app, "html_context")
-    url = get_conf_val(app, "linkcode_url")
-
     if url is None:
         if context is None or not all(context.get(key) for key in ("github_user", "github_repo")):
             raise ExtensionError(
@@ -132,15 +126,17 @@ def get_linkcode_url(app: Sphinx) -> str:
                 "sphinx-github-style: config value ``linkcode_url`` is missing. "
                 "Creating link from ``html_context`` values..."
             )
-            blob = context['github_version']  # Added by setup() above
-            url = f"https://github.com/{context['github_user']}/{context['github_repo']}/{blob}/"
+            url = f"https://github.com/{context['github_user']}/{context['github_repo']}"
 
+    blob = get_linkcode_revision(blob) if blob else context.get('github_version')
+
+    if blob is not None:
+        url = url.strip("/") + f"/blob/{blob}/"  # URL should be "https://github.com/user/repo"
     else:
-        # URL should be "https://github.com/user/repo"
-        url = url.strip("/") + f"/blob/{get_linkcode_revision(app)}/"
+        raise ExtensionError(
+            "sphinx-github-style: must provide a blob or GitHub version to link to")
 
-    url += "{filepath}#L{linestart}-L{linestop}"
-    return url
+    return url + "{filepath}#L{linestart}-L{linestop}"
 
 
 def get_linkcode_resolve(linkcode_url: str) -> Callable:
@@ -234,7 +230,7 @@ def get_top_level(app: Sphinx):
         finally:
             if pkg is None:
                 raise ExtensionError(
-                        "sphinx_github_style: Unable to determine top-level package")
+                    "sphinx_github_style: Unable to determine top-level package")
 
         top_level = pkg.get_metadata('top_level.txt').strip()
         app.config._raw_config['top_level'] = top_level
@@ -242,11 +238,20 @@ def get_top_level(app: Sphinx):
     return top_level
 
 
-def get_conf_val(app: Sphinx, attr: str, default: Any = None) -> Any:
-    """Retrieve values from ``conf.py``
+def get_conf_val(app: Sphinx, attr: str, default: Optional[Any] = None) -> Any:
+    """Retrieve the value of a ``conf.py`` config variable
 
-    Currently unclear why non-default ``conf.py`` values aren't being updated in the config attributes (?)
-    So checking for values in the ``_raw_config`` dict first, since they *do* get updated
+    :param attr: the config variable to retrieve
+    :param default: the default value to return if the variable isn't found
     """
     return app.config._raw_config.get(attr, getattr(app.config, attr, default))
 
+
+def set_conf_val(app: Sphinx, attr: str, value: Any) -> None:
+    """Set the value of a ``conf.py`` config variable
+
+    :param attr: the config variable to set
+    :param value: the variable value
+    """
+    app.config._raw_config[attr] = value
+    setattr(app.config, attr, value)
