@@ -3,15 +3,15 @@
 ..  Author: TDKorn (Adam Korn)
 
 .. |.get_linkcode_resolve| replace:: ``get_linkcode_resolve()``
-.. _.get_linkcode_resolve: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.1/sphinx_github_style/__init__.py#L146-L207
+.. _.get_linkcode_resolve: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.2/sphinx_github_style/__init__.py#L142-L203
 .. |.add_linkcode_node_class| replace:: ``add_linkcode_node_class()``
-.. _.add_linkcode_node_class: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.1/sphinx_github_style/add_linkcode_class.py#L9-L24
+.. _.add_linkcode_node_class: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.2/sphinx_github_style/add_linkcode_class.py#L9-L24
 .. |.TDKStyle| replace:: ``TDKStyle``
-.. _.TDKStyle: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.1/sphinx_github_style/github_style.py#L44-L139
+.. _.TDKStyle: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.2/sphinx_github_style/github_style.py#L44-L139
 .. |.TDKMethLexer| replace:: ``TDKMethLexer``
-.. _.TDKMethLexer: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.1/sphinx_github_style/meth_lexer.py#L27-L42
+.. _.TDKMethLexer: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.2/sphinx_github_style/meth_lexer.py#L27-L42
 .. |.github_style| replace:: ``github_style.css``
-.. _.github_style: https://github.com/tdkorn/sphinx-github-style/blob/v1.0.1/sphinx_github_style/_static/github_style.css
+.. _.github_style: https://github.com/tdkorn/sphinx-github-style/blob/v1.0.2/sphinx_github_style/_static/github_style.css
 .. |RTD| replace:: ReadTheDocs
 .. _RTD: https://sphinx-github-style.readthedocs.io/en/latest/
 .. |docs| replace:: **Explore the docs »**
