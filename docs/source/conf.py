@@ -102,6 +102,12 @@ html_context = {
     'github_repo': repo,
 }
 
+if not on_rtd:
+    site_url = "https://tdkorn.github.io/sphinx-github-style/"
+
+html_baseurl = "https://sphinx-github-style.readthedocs.io/en/latest/"
+
+sitemap_url_scheme = "{link}"
 # ============================ Extensions ====================================
 
 # Add any Sphinx extension module names here, as strings
@@ -112,6 +118,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.linkcode',
     'sphinx_github_style',
+    'sphinx_sitemap',
 ]
 
 # ====================== Extra Settings for Extensions ========================
@@ -145,7 +152,11 @@ python_use_unqualified_type_names = True
 # ~~~~ Sphinx GitHub Style ~~~~
 #
 # Blob to use when linking to GitHub source code
-linkcode_blob = 'last_tag'
+if on_rtd:
+    linkcode_blob = 'last_tag'
+else:
+    # For gh-pages use master
+    linkcode_blob = 'master'
 
 # Text to use for the linkcode link
 linkcode_link_text = "View on GitHub"
