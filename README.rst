@@ -2,6 +2,10 @@
 ..  Description: A Sphinx extension to add GitHub source code links and syntax highlighting
 ..  Author: TDKorn (Adam Korn)
 
+.. meta::
+   :title: Sphinx Github Style
+   :description: A Sphinx extension to add GitHub source code links and syntax highlighting
+   
 .. |.get_linkcode_resolve| replace:: ``get_linkcode_resolve()``
 .. _.get_linkcode_resolve: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.2/sphinx_github_style/__init__.py#L142-L203
 .. |.add_linkcode_node_class| replace:: ``add_linkcode_node_class()``
@@ -29,7 +33,7 @@
 
 .. raw:: html
 
-   <h1>sphinx-github-style</h1>
+   <h1>Sphinx Github Style</h1>
 
 GitHub source code links and syntax highlighting for Sphinx docs
 
