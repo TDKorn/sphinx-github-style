@@ -61,10 +61,8 @@ About
 GitHub Source Code Links
 ===============================
 
-.. |linkcode| replace:: ``sphinx.ext.linkcode``
-.. _linkcode: https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html
 
-Using |linkcode|_,  a ``View on GitHub`` link is added to the documentation of every class, method and function:
+Using :mod:`sphinx.ext.linkcode`,  a ``View on GitHub`` link is added to the documentation of every class, method and function:
 
 .. image:: https://user-images.githubusercontent.com/96394652/220941352-f5530a56-d338-4b90-b83a-4b22b0f632fe.png
    :alt: sphinx github style adds a "View on GitHub" link
@@ -78,7 +76,7 @@ They link to and highlight the corresponding code block in your GitHub repo:
 
 .. note::
 
-   These links can be used with/instead of the links added by ``sphinx.ext.viewcode``
+   These links can be used with/instead of the links added by :mod:`sphinx.ext.viewcode`
      * They use a newly added ``linkcode-link`` class which can be styled using CSS
 
 
