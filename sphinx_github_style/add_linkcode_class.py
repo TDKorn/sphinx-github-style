@@ -7,9 +7,9 @@ from typing import Any, Dict
 
 
 def add_linkcode_node_class(app: Sphinx, doctree: Node, docname: str) -> None:
-    """Changes every :class:`~.Node` added by linkcode to use the ``"linkcode-link"`` class
+    """Changes every :class:`~.Node` added by :mod:`sphinx.ext.linkcode` to use the ``"linkcode-link"`` class
 
-    This creates separation from the nodes added by ``sphinx.ext.viewcode``, allowing
+    This creates separation from the nodes added by :mod:`sphinx.ext.viewcode`, allowing
     for different link text and CSS styling
 
     Sets the link text to ``linkcode_link_text``, or ``"View on GitHub"`` if not provided

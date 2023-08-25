@@ -21,3 +21,8 @@ code.literal {
     color: #00e;
     padding-left: 12px;
 }
+/*Hide headers for config values; allows confval directives to be accessible via TOC*/
+#optional-configuration-variables h3 {
+    visibility: hidden;
+    display: none !important;
+}

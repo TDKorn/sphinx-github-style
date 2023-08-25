@@ -132,17 +132,6 @@ Optional Configuration Variables
 
 Add any of the following configuration variables to your ``conf.py``
 
-``top_level``
-^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: python
-
-   top_level: str
-
-
-The name of the top-level package. For this repo, it would be ``sphinx_github_style``
-
-...
 
 ``linkcode_blob``
 ^^^^^^^^^^^^^^^^^^^
@@ -155,7 +144,7 @@ The name of the top-level package. For this repo, it would be ``sphinx_github_st
 The blob to link to on GitHub - any of ``"head"``, ``"last_tag"``, or ``"{blob}"``
 
 * ``head`` (default): links to the most recent commit hash; if this commit is tagged, uses the tag instead
-* ``last_tag``: links to the most recently tagged commit; if no tags exist, uses ``head``
+* ``last_tag``: links to the most recent commit tag on the currently checked out branch
 * ``blob``: links to any blob you want, for example ``"master"`` or ``"v2.0.1"``
 
 
@@ -191,7 +180,7 @@ The text to use for the linkcode link
 
 .. code-block:: python
 
-   linkcode_resolve: types.FunctionType
+   linkcode_resolve: Callable
 
 A ``linkcode_resolve()`` function to use for resolving the link target
 

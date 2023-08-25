@@ -118,70 +118,56 @@ Optional Configuration Variables
 
 Add any of the following configuration variables to your ``conf.py``
 
-``top_level``
-^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: python
-
-   top_level: str
-
-
-The name of the top-level package. For this repo, it would be ``sphinx_github_style``
-
-...
 
 ``linkcode_blob``
 ^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: python
+.. confval:: linkcode_blob
 
-   linkcode_blob: str = "head"
+   The blob to link to on GitHub - any of ``"head"``, ``"last_tag"``, or ``"{blob}"``
 
+   * ``head`` (default): links to the most recent commit hash; if this commit is tagged, uses the tag instead
+   * ``last_tag``: links to the most recent commit tag on the currently checked out branch
+   * ``blob``: links to any blob you want, for example ``"master"`` or ``"v2.0.1"``
 
-The blob to link to on GitHub - any of ``"head"``, ``"last_tag"``, or ``"{blob}"``
+   :type: **str**
+   :default: ``"head"``
 
-* ``head`` (default): links to the most recent commit hash; if this commit is tagged, uses the tag instead
-* ``last_tag``: links to the most recently tagged commit; if no tags exist, uses ``head``
-* ``blob``: links to any blob you want, for example ``"master"`` or ``"v2.0.1"``
-
-
-...
 
 ``linkcode_url``
 ^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: python
+.. confval:: linkcode_url
 
-   linkcode_url: str = f"https://github.com/{html_context['github_user']}/{html_context['github_repo']}/{html_context['github_version']}"
+   The link to your GitHub repository formatted as ``https://github.com/user/repo``
 
-The link to your GitHub repository formatted as ``https://github.com/user/repo``
+   * If not provided, will attempt to create the link from the :external+sphinx:confval:`html_context` dict
 
-* If not provided, will attempt to create the link from the ``html_context`` dict
+   :type: **str**
+   :default: ``f"https://github.com/{html_context['github_user']}/{html_context['github_repo']}/{html_context['github_version']}"``
 
-...
 
 ``linkcode_link_text``
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: python
+.. confval:: linkcode_link_text
 
-   linkcode_link_text: str = "View on GitHub"
+   The text to use for the linkcode link
 
+   :type: **str**
+   :default: ``"View on GitHub"``
 
-The text to use for the linkcode link
-
-...
 
 ``linkcode_resolve``
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: python
+.. confval:: linkcode_resolve
 
-   linkcode_resolve: types.FunctionType
+   A ``linkcode_resolve()`` function to use when resolving the link target with :mod:`sphinx.ext.linkcode`
 
-A ``linkcode_resolve()`` function to use for resolving the link target
+   :type: **Callable**
+   :default: Return value from :func:`~.get_linkcode_resolve`
 
-* Uses default function from :func:`~.get_linkcode_resolve` if not specified (recommended)
 
 |
 

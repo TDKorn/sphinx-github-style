@@ -102,6 +102,9 @@ html_context = {
     'github_repo': repo,
 }
 
+if 'html' not in sys.argv:
+    pygments_style = 'sphinx'
+
 if not on_rtd:
     site_url = "https://tdkorn.github.io/sphinx-github-style/"
 
@@ -128,6 +131,7 @@ extensions = [
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'requests': ('https://requests.readthedocs.io/en/latest/', None),
+    'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
 }
 
 # ~~~~ AutoSectionLabel ~~~~
@@ -182,5 +186,30 @@ def skip(app, what, name, obj, would_skip, options):
 
 
 def setup(app):
+    from sphinx.domains.python import PyField
+    from sphinx.util.docfields import Field
+    from sphinx.locale import _
+
     app.connect('autodoc-skip-member', skip)
     app.add_css_file("custom.css")
+    app.add_object_type(
+        'confval',
+        'confval',
+        objname='configuration value',
+        indextemplate='pair: %s; configuration value',
+        doc_field_types=[
+            PyField(
+                'type',
+                label=_('Type'),
+                has_arg=False,
+                names=('type',),
+                bodyrolename='class'
+            ),
+            Field(
+                'default',
+                label=_('Default'),
+                has_arg=False,
+                names=('default',),
+            ),
+        ]
+    )
