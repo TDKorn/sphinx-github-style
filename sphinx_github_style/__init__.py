@@ -19,14 +19,7 @@ from .github_style import TDKStyle
 
 def setup(app: Sphinx) -> Dict[str, Any]:
     app.connect("builder-inited", add_static_path)
-
     app.add_config_value('linkcode_blob', 'head', True)
-    app.add_config_value('top_level', get_top_level(app), '')
-
-    app.setup_extension('sphinx_github_style.add_linkcode_class')
-    app.setup_extension('sphinx_github_style.github_style')
-    app.setup_extension('sphinx_github_style.meth_lexer')
-    app.setup_extension('sphinx.ext.linkcode')
 
     linkcode_blob = get_conf_val(app, "linkcode_blob")
     linkcode_url = get_linkcode_url(
@@ -35,15 +28,23 @@ def setup(app: Sphinx) -> Dict[str, Any]:
         context=get_conf_val(app, 'html_context'),
     )
     linkcode_func = get_conf_val(app, "linkcode_resolve")
+    repo_dir = get_repo_dir()
 
     if not callable(linkcode_func):
         print(
             "Function `linkcode_resolve` not found in ``conf.py``; "
             "using default function from ``sphinx_github_style``"
         )
-        linkcode_func = get_linkcode_resolve(linkcode_url)
+        linkcode_func = get_linkcode_resolve(linkcode_url, repo_dir)
 
     set_conf_val(app, 'linkcode_resolve', linkcode_func)
+    set_conf_val(app, 'top_level', get_top_level(repo_dir))
+
+    app.setup_extension('sphinx_github_style.add_linkcode_class')
+    app.setup_extension('sphinx_github_style.github_style')
+    app.setup_extension('sphinx_github_style.meth_lexer')
+    app.setup_extension('sphinx.ext.linkcode')
+
     return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
 
 
@@ -62,7 +63,7 @@ def get_linkcode_revision(blob: str) -> str:
        The value of ``blob`` can be any of ``"head"``, ``"last_tag"``, or ``"{blob}"``
 
        * ``head`` (default): links to the most recent commit hash; if this commit is tagged, uses the tag instead
-       * ``last_tag``: links to the most recently tagged commit; if no tags exist, uses ``head``
+       * ``last_tag``: links to the most recent commit tag on the currently checked out branch
        * ``blob``: links to any blob you want, for example ``"master"`` or ``"v2.0.1"``
     """
     if blob == "head":
@@ -73,10 +74,10 @@ def get_linkcode_revision(blob: str) -> str:
     return blob
 
 
-def get_head(errors: bool = False) -> Optional[str]:
+def get_head() -> str:
     """Gets the most recent commit hash or tag
 
-    :raises subprocess.CalledProcessError: if the commit can't be found and ``errors`` is ``True``
+    :return: The SHA or tag name of the most recent commit, or "master" if the call to git fails.
     """
     cmd = "git log -n1 --pretty=%H"
     try:
@@ -92,30 +93,32 @@ def get_head(errors: bool = False) -> Optional[str]:
         except subprocess.CalledProcessError:
             return head
 
-    except subprocess.CalledProcessError as e:
-        if errors:
-            raise e
-        else:
-            return print("Failed to get head")  # so no head?
+    except subprocess.CalledProcessError:
+        print("Failed to get head")  # so no head?
+        return "master"
 
 
 def get_last_tag() -> str:
-    """Get the most recent commit tag
+    """Get the most recent commit tag on the currently checked out branch
 
-    :raises RuntimeError: if there are no tagged commits
+    :raises ExtensionError: if no tags exist on the branch
     """
     try:
         cmd = "git describe --tags --abbrev=0"
         return subprocess.check_output(cmd.split(" ")).strip().decode('utf-8')
 
-    except subprocess.CalledProcessError as e:
-        raise RuntimeError("No tags exist for the repo...(?)") from e
+    except subprocess.CalledProcessError:
+        raise ExtensionError("``sphinx-github-style``: no tags found on current branch")
 
 
 def get_linkcode_url(blob: Optional[str] = None, context: Optional[Dict] = None, url: Optional[str] = None) -> str:
-    """Get the template URL for linking to highlighted GitHub source code
+    """Get the template URL for linking to highlighted GitHub source code with :mod:`sphinx.ext.linkcode`
 
-    Formatted into the final link by ``linkcode_resolve()``
+    Formatted into the final link by a ``linkcode_resolve()`` function
+
+    :param blob: The Git blob to link to
+    :param context: The :external+sphinx:confval:`html_context` dictionary
+    :param url: The base URL of the repository (ex. ``https://github.com/TDKorn/sphinx-github-style``)
     """
     if url is None:
         if context is None or not all(context.get(key) for key in ("github_user", "github_repo")):
@@ -139,11 +142,18 @@ def get_linkcode_url(blob: Optional[str] = None, context: Optional[Dict] = None,
     return url + "{filepath}#L{linestart}-L{linestop}"
 
 
-def get_linkcode_resolve(linkcode_url: str) -> Callable:
+def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None) -> Callable:
     """Defines and returns a ``linkcode_resolve`` function for your package
 
     Used by default if ``linkcode_resolve`` isn't defined in ``conf.py``
+
+    :param linkcode_url: The template URL to use when resolving cross-references with :mod:`sphinx.ext.linkcode`
+    :param repo_dir: The root directory of the Git repository.
     """
+    if repo_dir is None:
+        repo_dir = get_repo_dir()
+
+    top_level = get_top_level(repo_dir)
 
     def linkcode_resolve(domain, info):
         """Returns a link to the source code on GitHub, with appropriate lines highlighted
@@ -170,10 +180,6 @@ def get_linkcode_resolve(linkcode_url: str) -> Callable:
             except AttributeError:
                 return None
 
-        pkg_name = modname.split('.')[0]
-        pkg_dir = sys.modules.get(pkg_name).__file__
-        repo_dir = Path(pkg_dir).parent.parent
-
         try:
             filepath = os.path.relpath(inspect.getsourcefile(obj), repo_dir)
             if filepath is None:
@@ -189,7 +195,7 @@ def get_linkcode_resolve(linkcode_url: str) -> Callable:
             linestart, linestop = lineno, lineno + len(source) - 1
 
         # Fix links with "../../../" or "..\\..\\..\\"
-        filepath = '/'.join(filepath[filepath.find(pkg_name):].split('\\'))
+        filepath = '/'.join(filepath[filepath.find(top_level):].split('\\'))
 
         # Example: https://github.com/TDKorn/my-magento/blob/docs/magento/models/model.py#L28-L59
         final_link = linkcode_url.format(
@@ -203,39 +209,36 @@ def get_linkcode_resolve(linkcode_url: str) -> Callable:
     return linkcode_resolve
 
 
-def get_top_level(app: Sphinx):
-    # Retrieve conf.py value
-    top_level = get_conf_val(app, "top_level")
+def get_top_level(repo_dir: Optional[Path] = None) -> str:
+    """Retrieve the top-level module name of a package from its metadata.
 
-    if top_level is None:
-        # If not defined, try retrieving with pkg_resources
-        project_dir = Path(app.srcdir).parent.parent
-        project_name = os.path.basename(project_dir)
-        pkg = None
+    :param repo_dir: The root directory of the Git repository.
+    :return: The top-level module name of the package.
+    """
+    if repo_dir is None:
+        repo_dir = get_repo_dir()
 
-        try:
-            pkg = pkg_resources.require(project_name)[0]
+    pkg = pkg_resources.require(repo_dir.stem)[0]
+    return pkg.get_metadata('top_level.txt').strip()
 
-        except pkg_resources.DistributionNotFound:
-            # Try `html_context` repo name in case project structure isn't repo/docs/source
-            project_name = get_conf_val(app, "html_context", {}).get("github_repo")
 
-            if project_name is not None:
-                try:
-                    pkg = pkg_resources.require(project_name)[0]
+def get_repo_dir() -> Path:
+    """Returns the root directory of the repository
 
-                except pkg_resources.DistributionNotFound:
-                    pass
+    :return: A Path object representing the working directory of the repository.
+    """
+    try:
+        cmd = "git rev-parse --show-toplevel"
+        repo_dir = Path(subprocess.check_output(cmd.split(" ")).strip().decode('utf-8'))
 
-        finally:
-            if pkg is None:
-                raise ExtensionError(
-                    "sphinx_github_style: Unable to determine top-level package")
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError("Unable to determine the repository directory") from e
 
-        top_level = pkg.get_metadata('top_level.txt').strip()
-        app.config._raw_config['top_level'] = top_level
-
-    return top_level
+    # For ReadTheDocs, repo is cloned to /path/to/<repo_dir>/checkouts/<version>/
+    if repo_dir.parent.stem == "checkouts":
+        return repo_dir.parent.parent
+    else:
+        return repo_dir
 
 
 def get_conf_val(app: Sphinx, attr: str, default: Optional[Any] = None) -> Any:
