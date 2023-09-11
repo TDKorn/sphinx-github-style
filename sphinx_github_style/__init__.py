@@ -220,7 +220,6 @@ def get_top_level(repo_dir: Optional[Path] = None) -> str:
     :param repo_dir: The root directory of the Git repository.
     :return: The top-level module name of the package.
     """
-    print("get_top_level called")
     if repo_dir is None:
         repo_dir = get_repo_dir()
 
