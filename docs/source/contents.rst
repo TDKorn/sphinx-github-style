@@ -21,17 +21,8 @@ Table Of Contents
 
 
 .. toctree::
-   :maxdepth: 3
-   :caption: Examples
-   :glob:
-
-   _examples/*
-
-
-.. toctree::
    :caption: Extras
 
-   changelog
    self
 
 

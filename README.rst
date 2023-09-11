@@ -144,7 +144,19 @@ Add the extension to your ``conf.py``
 Optional Configuration Variables
 ===================================
 
-Add any of the following configuration variables to your ``conf.py``
+Add any (or none) of the following configuration variables to your ``conf.py``
+
+
+``top_level``
+^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   top_level: str
+
+The name of the package's top-level module. For this repo, it would be ``sphinx_github_style``
+
+...
 
 
 ``linkcode_blob``

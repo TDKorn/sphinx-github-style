@@ -116,7 +116,18 @@ Add the extension to your ``conf.py``
 Optional Configuration Variables
 ===================================
 
-Add any of the following configuration variables to your ``conf.py``
+Add any (or none) of the following configuration variables to your ``conf.py``
+
+
+``top_level``
+^^^^^^^^^^^^^^^^^^^
+
+.. confval:: top_level
+
+   The name of the package's top-level module. For this repo, it would be ``sphinx_github_style``
+
+   :type: **str**
+   :default: Return value from :func:`~.get_top_level`
 
 
 ``linkcode_blob``
