@@ -18,8 +18,11 @@ from .github_style import TDKStyle
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
+    repo_dir = get_repo_dir()
+
     app.connect("builder-inited", add_static_path)
     app.add_config_value('linkcode_blob', 'head', True)
+    app.add_config_value('top_level', get_top_level(repo_dir), True)
 
     linkcode_blob = get_conf_val(app, "linkcode_blob")
     linkcode_url = get_linkcode_url(
@@ -28,17 +31,15 @@ def setup(app: Sphinx) -> Dict[str, Any]:
         context=get_conf_val(app, 'html_context'),
     )
     linkcode_func = get_conf_val(app, "linkcode_resolve")
-    repo_dir = get_repo_dir()
+    top_level = get_conf_val(app, 'top_level')
 
     if not callable(linkcode_func):
         print(
             "Function `linkcode_resolve` not found in ``conf.py``; "
             "using default function from ``sphinx_github_style``"
         )
-        linkcode_func = get_linkcode_resolve(linkcode_url, repo_dir)
-
-    set_conf_val(app, 'linkcode_resolve', linkcode_func)
-    set_conf_val(app, 'top_level', get_top_level(repo_dir))
+        linkcode_func = get_linkcode_resolve(linkcode_url, repo_dir, top_level)
+        set_conf_val(app, 'linkcode_resolve', linkcode_func)
 
     app.setup_extension('sphinx_github_style.add_linkcode_class')
     app.setup_extension('sphinx_github_style.github_style')
@@ -142,18 +143,20 @@ def get_linkcode_url(blob: Optional[str] = None, context: Optional[Dict] = None,
     return url + "{filepath}#L{linestart}-L{linestop}"
 
 
-def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None) -> Callable:
+def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None, top_level: Optional[str] = None) -> Callable:
     """Defines and returns a ``linkcode_resolve`` function for your package
 
     Used by default if ``linkcode_resolve`` isn't defined in ``conf.py``
 
     :param linkcode_url: The template URL to use when resolving cross-references with :mod:`sphinx.ext.linkcode`
     :param repo_dir: The root directory of the Git repository.
+    :param top_level: The name of the package's top-level module.
     """
     if repo_dir is None:
         repo_dir = get_repo_dir()
 
-    top_level = get_top_level(repo_dir)
+    if top_level is None:
+        top_level = get_top_level(repo_dir)
 
     def linkcode_resolve(domain, info):
         """Returns a link to the source code on GitHub, with appropriate lines highlighted
@@ -218,7 +221,7 @@ def get_top_level(repo_dir: Optional[Path] = None) -> str:
     if repo_dir is None:
         repo_dir = get_repo_dir()
 
-    pkg = pkg_resources.require(repo_dir.stem)[0]
+    pkg = pkg_resources.require(Path(repo_dir).stem)[0]
     return pkg.get_metadata('top_level.txt').strip()
 
 

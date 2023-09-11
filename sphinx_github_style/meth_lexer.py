@@ -43,5 +43,5 @@ class TDKMethLexer(NumPyLexer):
 
 
 def setup(app: Sphinx):
-    top_level = app.config._raw_config['top_level']  # Set by __init__.setup()
+    top_level = app.config._raw_config.get('top_level', getattr(app.config, 'top_level'))
     app.add_lexer('python', TDKMethLexer.get_pkg_lexer(top_level))
