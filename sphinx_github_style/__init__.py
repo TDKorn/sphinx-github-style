@@ -186,7 +186,8 @@ def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None, top
                 return None
 
         try:
-            filepath = os.path.relpath(inspect.getsourcefile(obj), repo_dir)
+            modpath = inspect.getsourcefile(inspect.unwrap(obj))
+            filepath = Path(modpath).relative_to(repo_dir)
             if filepath is None:
                 return
         except Exception:
@@ -199,12 +200,9 @@ def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None, top
         else:
             linestart, linestop = lineno, lineno + len(source) - 1
 
-        # Fix links with "../../../" or "..\\..\\..\\"
-        filepath = '/'.join(filepath[filepath.find(top_level):].split('\\'))
-
         # Example: https://github.com/TDKorn/my-magento/blob/docs/magento/models/model.py#L28-L59
         final_link = linkcode_url.format(
-            filepath=filepath,
+            filepath=filepath.as_posix(),
             linestart=linestart,
             linestop=linestop
         )
@@ -239,11 +237,7 @@ def get_repo_dir() -> Path:
     except subprocess.CalledProcessError as e:
         raise RuntimeError("Unable to determine the repository directory") from e
 
-    # For ReadTheDocs, repo is cloned to /path/to/<repo_dir>/checkouts/<version>/
-    if repo_dir.parent.stem == "checkouts":
-        return repo_dir.parent.parent
-    else:
-        return repo_dir
+    return repo_dir
 
 
 def get_conf_val(app: Sphinx, attr: str, default: Optional[Any] = None) -> Any:
