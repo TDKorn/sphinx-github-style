@@ -5,28 +5,38 @@ from pygments.lexers.python import NumPyLexer
 from inspect import getmembers, isfunction, ismethod, ismodule, isclass
 
 
+def is_module_in_package(object):
+    """Predicate to determine if an object is a module within the project's top level package"""
+    return ismodule(object) and object.__name__.startswith(TDKMethLexer.TOP_LEVEL)
+
+
+def is_class_in_package(object):
+    """Predicate to determine if an object is a class within the project's top level package"""
+    return isclass(object) and object.__module__.startswith(TDKMethLexer.TOP_LEVEL)
+
+
 def get_pkg_funcs(pkg_module: types.ModuleType, funcs_meths=set(), processed_modules=set()):
     funcs_meths.update(get_funcs(pkg_module))
     processed_modules.add(pkg_module)
 
-    for class_name, _class in getmembers(pkg_module, isclass):
+    for class_name, _class in getmembers(pkg_module, is_class_in_package):
         funcs_meths.update(get_funcs(_class))
 
-    for mod_name, mod in getmembers(pkg_module, ismodule):
+    for mod_name, mod in getmembers(pkg_module, is_module_in_package):
         if mod in processed_modules:
             continue
 
         try:
-            is_pkg = Path(mod.__file__).name == '__init__.py'
-        except AttributeError:  # It's a built-in module
-            is_pkg = False
+             mod_path = Path(mod.__file__)
+        except AttributeError:
+            continue  # It's a built-in module
 
-        if not is_pkg:  # If it's not a subpackage, get all funcs/meths defined in it
+        if mod_path.name == '__init__.py':  # If it's a subpackage, call recursively to process all submodules
+            get_pkg_funcs(mod, funcs_meths, processed_modules)
+
+        else:  # If it's not a subpackage, get all funcs/meths defined in it
             funcs_meths.update(get_funcs(mod))
             processed_modules.add(mod)
-
-        else:  # If it's a subpackage, call recursively to process all submodules
-            get_pkg_funcs(mod, funcs_meths, processed_modules)
 
     return funcs_meths
 
