@@ -1,21 +1,34 @@
 import types
+from pathlib import Path
 from typing import Type, Optional
 from pygments.lexers.python import NumPyLexer
 from inspect import getmembers, isfunction, ismethod, ismodule, isclass
 
 
-def get_pkg_funcs(pkg: types.ModuleType):
-    # Get funcs/meths defined in pkg.__init__
-    funcs_meths = get_funcs(pkg)
-    modules = getmembers(pkg, ismodule)
-    # Get funcs/meths of each module in pkg
-    for name, module in modules:
-        funcs_meths += get_funcs(module)
-        classes = getmembers(module, isclass)
-        for class_name, _class in classes:
-            funcs_meths += get_funcs(_class)
-    # Set of all funcs/meths contained in modules used by package
-    return set(funcs_meths)
+def get_pkg_funcs(pkg_module: types.ModuleType, funcs_meths=set(), processed_modules=set()):
+    funcs_meths.update(get_funcs(pkg_module))
+    processed_modules.add(pkg_module)
+
+    for class_name, _class in getmembers(pkg_module, isclass):
+        funcs_meths.update(get_funcs(_class))
+
+    for mod_name, mod in getmembers(pkg_module, ismodule):
+        if mod in processed_modules:
+            continue
+
+        try:
+            is_pkg = Path(mod.__file__).name == '__init__.py'
+        except AttributeError:  # It's a built-in module
+            is_pkg = False
+
+        if not is_pkg:  # If it's not a subpackage, get all funcs/meths defined in it
+            funcs_meths.update(get_funcs(mod))
+            processed_modules.add(mod)
+
+        else:  # If it's a subpackage, call recursively to process all submodules
+            get_pkg_funcs(mod, funcs_meths, processed_modules)
+
+    return funcs_meths
 
 
 def get_funcs(of):
