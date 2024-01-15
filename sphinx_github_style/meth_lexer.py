@@ -19,8 +19,8 @@ def get_pkg_funcs(pkg: types.ModuleType):
 
 
 def get_funcs(of):
-    members = getmembers(of, isfunction or ismethod)
-    return list(dict(members))
+    members = getmembers(of, lambda obj: isfunction(obj) or ismethod(obj))
+    return set(dict(members))
 
 
 class TDKMethLexer(NumPyLexer):
