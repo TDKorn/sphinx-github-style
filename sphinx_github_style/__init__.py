@@ -3,7 +3,6 @@ import sys
 import sphinx
 import inspect
 import subprocess
-import pkg_resources
 from pathlib import Path
 from sphinx.application import Sphinx
 from sphinx.errors import ExtensionError
@@ -20,7 +19,7 @@ from .github_style import TDKStyle
 def setup(app: Sphinx) -> Dict[str, Any]:
     app.connect("builder-inited", add_static_path)
     app.add_config_value('linkcode_blob', 'head', True)
-    app.add_config_value('top_level', '', True)
+    app.add_config_value('top_level', None, True)
 
     linkcode_blob = get_conf_val(app, "linkcode_blob")
     linkcode_url = get_linkcode_url(
@@ -31,9 +30,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     linkcode_func = get_conf_val(app, "linkcode_resolve")
     repo_dir = get_repo_dir()
 
-    if not (top_level := get_conf_val(app, 'top_level')):
-        top_level = get_top_level(repo_dir)
-        set_conf_val(app, 'top_level', top_level)
+    top_level = get_conf_val(app, 'top_level')
+    TDKMethLexer.TOP_LEVEL = top_level
 
     if not callable(linkcode_func):
         print(
@@ -45,8 +43,10 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 
     app.setup_extension('sphinx_github_style.add_linkcode_class')
     app.setup_extension('sphinx_github_style.github_style')
-    app.setup_extension('sphinx_github_style.meth_lexer')
     app.setup_extension('sphinx.ext.linkcode')
+
+    # Add lexer after linkcode sets the top level
+    app.connect('env-updated', add_lexer)
 
     return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
 
@@ -56,6 +56,11 @@ def add_static_path(app) -> None:
     app.config.html_static_path.append(
         str(Path(__file__).parent.joinpath("_static").absolute())
     )
+
+
+def add_lexer(app: Sphinx, env) -> None:
+    """Registers the :class:`~.TDKMethLexer` to add GitHub dark syntax highlighting"""
+    app.add_lexer('python', TDKMethLexer.get_pkg_lexer())
 
 
 def get_linkcode_revision(blob: str) -> str:
@@ -157,9 +162,6 @@ def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None, top
     if repo_dir is None:
         repo_dir = get_repo_dir()
 
-    if top_level is None:
-        top_level = get_top_level(repo_dir)
-
     def linkcode_resolve(domain, info):
         """Returns a link to the source code on GitHub, with appropriate lines highlighted
 
@@ -173,6 +175,10 @@ def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None, top
 
         modname = info['module']
         fullname = info['fullname']
+
+        if TDKMethLexer.TOP_LEVEL is None:
+            pkg_name = modname.split('.')[0]
+            TDKMethLexer.TOP_LEVEL = pkg_name
 
         submod = sys.modules.get(modname)
         if submod is None:
@@ -210,19 +216,6 @@ def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None, top
         return final_link
 
     return linkcode_resolve
-
-
-def get_top_level(repo_dir: Optional[Path] = None) -> str:
-    """Retrieve the top-level module name of a package from its metadata.
-
-    :param repo_dir: The root directory of the Git repository.
-    :return: The top-level module name of the package.
-    """
-    if repo_dir is None:
-        repo_dir = get_repo_dir()
-
-    pkg = pkg_resources.require(Path(repo_dir).stem)[0]
-    return pkg.get_metadata('top_level.txt').strip()
 
 
 def get_repo_dir() -> Path:

@@ -1,6 +1,5 @@
 import types
-from typing import Type
-from sphinx.application import Sphinx
+from typing import Type, Optional
 from pygments.lexers.python import NumPyLexer
 from inspect import getmembers, isfunction, ismethod, ismodule, isclass
 
@@ -31,17 +30,19 @@ class TDKMethLexer(NumPyLexer):
     name = 'TDK'
     url = 'https://github.com/TDKorn'
     aliases = ['tdk']
-
-    EXTRA_KEYWORDS = {}
+    TOP_LEVEL = None
 
     @classmethod
-    def get_pkg_lexer(cls, pkg_name: str) -> Type["TDKMethLexer"]:
-        pkg = __import__(pkg_name)
+    def get_pkg_lexer(cls, pkg_name: Optional[str] = None) -> Type["TDKMethLexer"]:
+        if pkg_name:
+            cls.TOP_LEVEL = pkg_name
+
+        if not cls.TOP_LEVEL:
+            raise ValueError('Must provide a package name')
+
+        pkg = __import__(cls.TOP_LEVEL)
         funcs = get_pkg_funcs(pkg)
         cls.EXTRA_KEYWORDS = funcs
         return cls
 
 
-def setup(app: Sphinx):
-    top_level = app.config._raw_config.get('top_level', getattr(app.config, 'top_level'))
-    app.add_lexer('python', TDKMethLexer.get_pkg_lexer(top_level))
