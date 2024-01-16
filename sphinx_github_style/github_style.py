@@ -25,7 +25,7 @@ pl = {
     "syntax-markup-list": "#f2cc60",
     "syntax-markup-heading": "#1f6feb",
     "syntax-markup-italic": "#c9d1d9",
-    "syntax-markup-bold": "#c9d1d9",
+    "syntax-markup-bold": "#e6edf3",
     "syntax-markup-deleted-text": "#ffdcd7",
     "syntax-markup-deleted-bg": "#67060c",
     "syntax-markup-inserted-text": "#aff5b4",
@@ -71,10 +71,10 @@ class TDKStyle(Style):
         Error: "#f8f8f2",
 
         Keyword: pl["syntax-keyword"],
-        Keyword.Constant: pl["syntax-constant"],
+        Keyword.Constant: pl["syntax-constant"],  # Ex. None
         Keyword.Declaration: pl["syntax-keyword"],
         Keyword.Namespace: pl["syntax-keyword"],
-        Keyword.Pseudo: pl["syntax-entity"],  # Ex. None
+        Keyword.Pseudo: pl["syntax-entity"],
         Keyword.Reserved: pl["syntax-constant"],
         Keyword.Type: pl["syntax-constant"],
 
@@ -106,15 +106,15 @@ class TDKStyle(Style):
         Name.Variable.Class: pl["syntax-variable"],
         Name.Variable.Global: pl["syntax-variable"],
         Name.Variable.Instance: pl["syntax-markup-bold"],
-        Name.Variable.Magic: pl["syntax-entity"],
+        Name.Variable.Magic: pl["syntax-markup-bold"],
 
-        Number: "#ffb86c",
-        Number.Bin: "#ffb86c",
-        Number.Float: "#ffb86c",
-        Number.Hex: "#ffb86c",
-        Number.Integer: "#ffb86c",
-        Number.Integer.Long: "#ffb86c",
-        Number.Oct: "#ffb86c",
+        Number: pl["syntax-constant"],
+        Number.Bin: pl["syntax-constant"],
+        Number.Float: pl["syntax-constant"],
+        Number.Hex: pl["syntax-constant"],
+        Number.Integer: pl["syntax-constant"],
+        Number.Integer.Long: pl["syntax-constant"],
+        Number.Oct: pl["syntax-constant"],
         Operator: pl["syntax-constant"],
         Operator.Word: pl["syntax-constant"],
 
