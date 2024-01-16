@@ -1,8 +1,9 @@
 import builtins
 from pathlib import Path
 from types import ModuleType
-from typing import Type, Optional, Set
-from pygments.lexers.python import NumPyLexer
+from pygments.token import Name, Keyword
+from typing import Type, Optional, Set, Any
+from pygments.lexers.python import PythonLexer
 from inspect import getmembers, isfunction, ismethod, ismodule, isclass, isbuiltin, ismethoddescriptor
 
 
@@ -69,22 +70,30 @@ def get_funcs_from_external_module(module: ModuleType, funcs_meths: Set[str]):
     return funcs_meths
 
 
-def get_builtin_funcs():
-    funcs_meths = set(dict(getmembers(builtins, isbuiltin)))
-
-    for class_name, _class in getmembers(builtins, isclass):
-        methods = getmembers(_class, ismethoddescriptor)
-        funcs_meths.update(set(dict(methods)))
-
-    return funcs_meths
-
-
-def get_funcs(of):
+def get_funcs(of: Any) -> Set[str]:
     members = getmembers(of, lambda obj: isfunction(obj) or ismethod(obj))
     return set(dict(members))
 
 
-class TDKMethLexer(NumPyLexer):
+def get_builtins():
+    funcs_meths = set(dict(getmembers(builtins, isbuiltin)))
+    classes = set()
+
+    for class_name, _class in getmembers(builtins, isclass):
+        methods = getmembers(_class, ismethoddescriptor)
+        funcs_meths.update(dict(methods))
+        classes.add(class_name)
+
+    return {
+        'funcs': funcs_meths,
+        'classes': classes
+    }
+
+
+BUILTINS = get_builtins()
+
+
+class TDKMethLexer(PythonLexer):
     """Adds syntax highlighting for methods and functions within a python Package
 
     """
@@ -93,7 +102,8 @@ class TDKMethLexer(NumPyLexer):
     aliases = ['tdk']
 
     TOP_LEVEL = None
-    EXTRA_KEYWORDS = get_builtin_funcs()
+    FUNCS = BUILTINS['funcs']
+    CLASSES = BUILTINS['classes']
 
     @classmethod
     def get_pkg_lexer(cls, pkg_name: Optional[str] = None) -> Type["TDKMethLexer"]:
@@ -104,8 +114,30 @@ class TDKMethLexer(NumPyLexer):
             raise ValueError('Must provide a package name')
 
         pkg = __import__(cls.TOP_LEVEL)
+
+        # Add names of all funcs/meths in the package
         funcs = get_pkg_funcs(pkg, cls.TOP_LEVEL)
-        cls.EXTRA_KEYWORDS.update(funcs)
+        cls.FUNCS.update(funcs)
         return cls
 
+    def get_tokens_unprocessed(self, text):
+        tokens = list(PythonLexer.get_tokens_unprocessed(self, text))
 
+        for token_idx, (index, token, value) in enumerate(tokens):
+            if token is Name.Builtin and value in self.CLASSES:
+                if tokens[token_idx+1][-1] == '(':
+                    yield index, Name.Builtin, value  # Highlight as function call
+                else:
+                    yield index, Name.Builtin.Pseudo, value  # Highlight as type hint
+
+            elif token is Name and value in self.FUNCS:
+                if tokens[token_idx+1][-1] == '(':
+                    yield index, Keyword.Pseudo, value
+                else:
+                    yield index, Name, value
+
+            elif token is Name and value[0].isupper():
+                yield index, Name.Class, value
+
+            else:
+                yield index, token, value
