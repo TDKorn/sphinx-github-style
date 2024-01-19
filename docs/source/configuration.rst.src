@@ -1,0 +1,59 @@
+
+``top_level``
+^^^^^^^^^^^^^^^^^^^
+
+.. confval:: top_level
+
+   The name of the package's top-level module. For this repo, it would be ``sphinx_github_style``
+
+   :type: ``str``
+
+
+``linkcode_blob``
+^^^^^^^^^^^^^^^^^^^
+
+.. confval:: linkcode_blob
+
+   The blob to link to on GitHub - any of ``"head"``, ``"last_tag"``, or ``"{blob}"``
+
+   * ``head`` (default): links to the most recent commit hash; if this commit is tagged, uses the tag instead
+   * ``last_tag``: links to the most recent commit tag on the currently checked out branch
+   * ``blob``: links to any blob you want, for example ``"master"`` or ``"v2.0.1"``
+
+   :type: ``str``
+   :default: ``"head"``
+
+
+``linkcode_url``
+^^^^^^^^^^^^^^^^^^^
+
+.. confval:: linkcode_url
+
+   The link to your GitHub repository formatted as ``https://github.com/user/repo``
+
+   * If not provided, will attempt to create the link from the :external+sphinx:confval:`html_context` dict
+
+   :type: ``str``
+   :default: ``f"https://github.com/{html_context['github_user']}/{html_context['github_repo']}/{html_context['github_version']}"``
+
+
+``linkcode_link_text``
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. confval:: linkcode_link_text
+
+   The text to use for the linkcode link
+
+   :type: ``str``
+   :default: ``"View on GitHub"``
+
+
+``linkcode_resolve``
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. confval:: linkcode_resolve
+
+   A ``linkcode_resolve()`` function to use when resolving the link target with :mod:`sphinx.ext.linkcode`
+
+   :type: ``Callable``
+   :default: Return value from :func:`~.get_linkcode_resolve`

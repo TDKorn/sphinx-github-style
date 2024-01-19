@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from setuptools import setup, find_packages
 
-LONG_DESCRIPTION_SRC = 'README_PyPi.rst'
+LONG_DESCRIPTION_SRC = 'README.rst'
 
 
 def read(file):

@@ -1,3 +1,22 @@
+.. |.~.get_linkcode_resolve| replace:: ``get_linkcode_resolve()``
+.. _.~.get_linkcode_resolve: https://sphinx-github-style.readthedocs.io/en/latest/modules.html#sphinx_github_style.__init__.get_linkcode_resolve
+.. |linkcode_blob| replace:: ``linkcode_blob``
+.. _linkcode_blob: https://sphinx-github-style.readthedocs.io/en/latest/index.html#confval-linkcode_blob
+.. |linkcode_link_text| replace:: ``linkcode_link_text``
+.. _linkcode_link_text: https://sphinx-github-style.readthedocs.io/en/latest/index.html#confval-linkcode_link_text
+.. |linkcode_resolve| replace:: ``linkcode_resolve``
+.. _linkcode_resolve: https://sphinx-github-style.readthedocs.io/en/latest/index.html#confval-linkcode_resolve
+.. |linkcode_url| replace:: ``linkcode_url``
+.. _linkcode_url: https://sphinx-github-style.readthedocs.io/en/latest/index.html#confval-linkcode_url
+.. |sphinx+html_context| replace:: ``html_context``
+.. _sphinx+html_context: https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_context
+.. |.sphinx.ext.linkcode| replace:: ``sphinx.ext.linkcode``
+.. _.sphinx.ext.linkcode: https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode
+.. |.sphinx.ext.viewcode| replace:: ``sphinx.ext.viewcode``
+.. _.sphinx.ext.viewcode: https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html#module-sphinx.ext.viewcode
+.. |top_level| replace:: ``top_level``
+.. _top_level: https://sphinx-github-style.readthedocs.io/en/latest/index.html#confval-top_level
+
 ..  Title: Sphinx Github Style
 ..  Description: A Sphinx extension to add GitHub source code links and syntax highlighting
 ..  Author: TDKorn (Adam Korn)
@@ -5,21 +24,13 @@
 .. meta::
    :title: Sphinx Github Style
    :description: A Sphinx extension to add GitHub source code links and syntax highlighting
-   
-.. |.get_linkcode_resolve| replace:: ``get_linkcode_resolve()``
-.. _.get_linkcode_resolve: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.5/sphinx_github_style/__init__.py#L148-L214
-.. |.add_linkcode_node_class| replace:: ``add_linkcode_node_class()``
-.. _.add_linkcode_node_class: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.5/sphinx_github_style/add_linkcode_class.py#L9-L24
-.. |.TDKStyle| replace:: ``TDKStyle``
-.. _.TDKStyle: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.5/sphinx_github_style/github_style.py#L44-L139
-.. |.TDKMethLexer| replace:: ``TDKMethLexer``
-.. _.TDKMethLexer: https://github.com/TDKorn/sphinx-github-style/blob/v1.0.5/sphinx_github_style/meth_lexer.py#L27-L42
+
+
 .. |.github_style| replace:: ``github_style.css``
-.. _.github_style: https://github.com/tdkorn/sphinx-github-style/blob/v1.0.5/sphinx_github_style/_static/github_style.css
-.. |RTD| replace:: ReadTheDocs
-.. _RTD: https://sphinx-github-style.readthedocs.io/en/latest/
-.. |docs| replace:: **Explore the docs »**
-.. _docs: https://sphinx-github-style.readthedocs.io/en/latest/
+.. _.github_style: https://github.com/tdkorn/sphinx-github-style/tree/v1.0.4/sphinx_github_style/_static/github_style.css
+
+
+
 
 
 .. raw:: html
@@ -27,17 +38,27 @@
    <div align="center">
 
 
-.. image:: docs/source/_static/logo_square_grey_blue.png
+.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/master/docs/source/_static/logo_square_grey_blue.png
    :alt: Sphinx GitHub Style: GitHub Integration and Pygments Style for Sphinx Documentation
    :width: 25%
+
+
 
 .. raw:: html
 
    <h1>Sphinx Github Style</h1>
 
-GitHub source code links and syntax highlighting for Sphinx docs
+
+GitHub source code links and syntax highlighting for Sphinx documentation
+
+
+.. |docs| replace:: **Explore the docs »**
+.. _docs: https://sphinx-github-style.readthedocs.io/en/latest/
 
 |docs|_
+
+
+
 
 .. image:: https://img.shields.io/pypi/v/sphinx-github-style?color=eb5202
    :target: https://pypi.org/project/sphinx-github-style/
@@ -61,44 +82,54 @@ GitHub source code links and syntax highlighting for Sphinx docs
    <br/>
 
 
+
 About
 ~~~~~~~~~~~~~
 
-``sphinx-github-style`` is a Sphinx extension that makes your docs look like and link to GitHub
+``sphinx-github-style`` is a Sphinx extension that links your documentation to GitHub source code.
+It also adds syntax highlighting for code blocks similar to GitHub's pretty lights dark theme.
 
 ...
+
 
 GitHub Source Code Links
 ===============================
 
-.. |linkcode| replace:: ``sphinx.ext.linkcode``
-.. _linkcode: https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html
 
-**Using** |linkcode|_, a ``View on GitHub`` **link is added to the documentation of every class, method and function:**
-
-.. image:: https://user-images.githubusercontent.com/96394652/220941352-f5530a56-d338-4b90-b83a-4b22b0f632fe.png
-   :alt: sphinx github style adds a "View on GitHub" link
-
-**They link to and highlight the corresponding code block in your GitHub repo:**
-
-.. image:: https://user-images.githubusercontent.com/96394652/220945912-447173db-2ac7-4e00-bec5-3859753bf687.png
+Using |.sphinx.ext.linkcode|_,  a ``View on GitHub`` link is added to the documentation of every class, method, function, and property:
 
 
-|
+
+
+
+.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/master/docs/source/_static/github_link.png
+   :alt: sphinx-github-style adds a "View on GitHub" link
+
+
+They link to and highlight the corresponding code block in your GitHub repository:
+
+
+
+.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/master/docs/source/_static/github_linked_code.png
+   :alt: The linked corresponding highlighted source code block on GitHub
+
+
 
 .. raw:: html
 
    <table>
-      <tr align="left">
-         <th>📝 Note</th>
-      </tr>
-      <tr>
-         <td>
+       <tr align="left">
+           <th>
 
-These links can be used with/instead of the links added by ``sphinx.ext.viewcode``
+📝 Note
 
-* They use a newly added ``linkcode-link`` class which can be styled using CSS
+.. raw:: html
 
+   </th>
+   <tr><td>
+
+These links can be `styled with CSS <https://sphinx-github-style.readthedocs.io/en/latest/add_linkcode_class.html>`_ and used with/instead
+of the links added by |.sphinx.ext.viewcode|_
 
 .. raw:: html
 
@@ -106,18 +137,18 @@ These links can be used with/instead of the links added by ``sphinx.ext.viewcode
    </table>
 
 
-|
 
 Syntax Highlighting
 ====================
 
-``sphinx-github-style`` **also contains a** ``Pygments`` **style to highlight code in your documentation similar to GitHub:**
+``sphinx-github-style`` also contains a ``Pygments`` style to highlight code blocks similar to GitHub:
 
 
-.. image:: https://user-images.githubusercontent.com/96394652/220946796-bf7aa236-964d-48e7-83e2-142aac00b0dd.png
+
+.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/master/docs/source/_static/syntax_highlighting.png
+   :alt: A code block highlighted by the Pygments style. It looks identical to GitHub.
 
 
-|
 
 Installation
 ~~~~~~~~~~~~~~~~
@@ -126,7 +157,6 @@ To install using ``pip``::
 
  pip install sphinx-github-style
 
-|
 
 Configuration
 ~~~~~~~~~~~~~~~
@@ -139,93 +169,58 @@ Add the extension to your ``conf.py``
        "sphinx_github_style",
    ]
 
-...
-
 Optional Configuration Variables
 ===================================
 
 Add any (or none) of the following configuration variables to your ``conf.py``
 
 
-``top_level``
-^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: python
-
-   top_level: str
-
-The name of the package's top-level module. For this repo, it would be ``sphinx_github_style``
-
-...
 
 
-``linkcode_blob``
-^^^^^^^^^^^^^^^^^^^
+|top_level|_
+ The name of the package's top-level module. For this repo, it would be ``sphinx_github_style``
 
-.. code-block:: python
-
-   linkcode_blob: str = "head"
-
-
-The blob to link to on GitHub - any of ``"head"``, ``"last_tag"``, or ``"{blob}"``
-
-* ``head`` (default): links to the most recent commit hash; if this commit is tagged, uses the tag instead
-* ``last_tag``: links to the most recent commit tag on the currently checked out branch
-* ``blob``: links to any blob you want, for example ``"master"`` or ``"v2.0.1"``
-
-
-...
-
-``linkcode_url``
-^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: python
-
-   linkcode_url: str = f"https://github.com/{html_context['github_user']}/{html_context['github_repo']}/{html_context['github_version']}"
-
-The link to your GitHub repository formatted as ``https://github.com/user/repo``
-
-* If not provided, will attempt to create the link from the ``html_context`` dict
-
-...
-
-``linkcode_link_text``
-^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: python
-
-   linkcode_link_text: str = "View on GitHub"
-
-
-The text to use for the linkcode link
-
-...
-
-``linkcode_resolve``
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: python
-
-   linkcode_resolve: Callable
-
-A ``linkcode_resolve()`` function to use for resolving the link target
-
-* Uses default function from |.get_linkcode_resolve|_ if not specified (recommended)
+  **Type:** ``str``
 
 |
 
-Noteworthy Components
-~~~~~~~~~~~~~~~~~~~~~
+|linkcode_blob|_
+ The blob to link to on GitHub - any of ``"head"``, ``"last_tag"``, or ``"{blob}"``
 
-* |.TDKStyle|_ - Pygments Style for syntax highlighting similar to Github Pretty Lights Dark Theme
-* |.TDKMethLexer|_ - Pygments Lexor to add syntax highlighting to methods
-* |.get_linkcode_resolve|_ - to link to GitHub source code using ``sphinx.ext.linkcode``
-* |.add_linkcode_node_class|_ - adds a new ``linkcode-link`` class, allowing for CSS styling separately from ``viewcode`` links
-* |.github_style|_ - CSS styling for linkcode links (icon + text)
+  **Type:** ``str``
+
+  **Default:** ``"head"``
+
+ * ``"head"`` (default): links to the most recent commit hash; if this commit is tagged, uses the tag instead
+ * ``"last_tag"``: links to the most recent commit tag on the currently checked out branch
+ * ``"blob"``: links to any blob you want, for example ``"master"`` or ``"v2.0.1"``
 
 |
 
-Documentation
-~~~~~~~~~~~~~~~~
+|linkcode_url|_
+ The link to your GitHub repository formatted as ``https://github.com/user/repo``
 
-Full documentation can be found on |RTD|_
+  **Type:** ``str``
+
+  **Default:** ``f"https://github.com/{html_context['github_user']}/{html_context['github_repo']}/{html_context['github_version']}"``
+
+ * If not provided, will attempt to create the link from the |sphinx+html_context|_ dict
+
+|
+
+|linkcode_link_text|_
+ The text to use for the linkcode link
+
+  **Type:** ``str``
+
+  **Default:** ``"View on GitHub"``
+
+|
+
+|linkcode_resolve|_
+ A ``linkcode_resolve()`` function to use when resolving the link target with |.sphinx.ext.linkcode|_
+
+  **Type:** ``Callable``
+
+  **Default:** Return value from |.~.get_linkcode_resolve|_
+

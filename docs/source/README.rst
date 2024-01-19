@@ -11,21 +11,54 @@
 .. _.github_style: https://github.com/tdkorn/sphinx-github-style/tree/v1.0.4/sphinx_github_style/_static/github_style.css
 
 
+.. only:: pypi
+
+   sphinx-github-style - GitHub source code links and syntax highlighting for Sphinx documentation
+   -------------------------------------------------------------------------------------------------
+
+   .. image:: _static/logo_pypi.png
+      :alt: Sphinx GitHub Style: GitHub Integration and Pygments Style for Sphinx Documentation
+      :width: 50%
+      :align: center
+
+
 .. raw:: html
 
    <div align="center">
 
 
-.. image:: _static/logo_square.ico
-   :alt: Sphinx GitHub Style: GitHub Integration and Pygments Style for Sphinx Documentation
-   :width: 25%
+.. only:: readme
+
+   .. image:: _static/logo_square_grey_blue.png
+      :alt: Sphinx GitHub Style: GitHub Integration and Pygments Style for Sphinx Documentation
+      :width: 25%
+
+.. only:: html
+
+   .. image:: _static/logo_square.ico
+      :alt: Sphinx GitHub Style: GitHub Integration and Pygments Style for Sphinx Documentation
+      :width: 25%
+
+.. only:: readme or html
+
+   .. raw:: html
+
+      <h1>Sphinx Github Style</h1>
 
 
-.. raw:: html
+GitHub source code links and syntax highlighting for Sphinx documentation
 
-   <h1>Sphinx Github Style</h1>
 
-GitHub source code links and syntax highlighting for Sphinx docs
+.. only:: readme or pypi
+
+   .. |docs| replace:: **Explore the docs »**
+   .. _docs: https://sphinx-github-style.readthedocs.io/en/latest/
+
+   |docs|_
+
+.. only:: pypi
+
+   |
 
 
 .. image:: https://img.shields.io/pypi/v/sphinx-github-style?color=eb5202
@@ -49,6 +82,9 @@ GitHub source code links and syntax highlighting for Sphinx docs
    <br/>
    <br/>
 
+.. only:: pypi
+
+   |
 
 About
 ~~~~~~~~~~~~~
@@ -65,43 +101,54 @@ GitHub Source Code Links
 
 Using :mod:`sphinx.ext.linkcode`,  a ``View on GitHub`` link is added to the documentation of every class, method, function, and property:
 
+.. only:: pypi
+
+   |
+
 .. only:: html
 
    .. autofunction:: sphinx_github_style.__init__.get_repo_dir
-      :no-index:
+      :noindex:
 
-.. only:: not html
+.. only:: readme or pypi
 
-   .. image:: https://user-images.githubusercontent.com/96394652/220941352-f5530a56-d338-4b90-b83a-4b22b0f632fe.png
-      :alt: sphinx github style adds a "View on GitHub" link
+   .. image:: _static/github_link.png
+      :alt: sphinx-github-style adds a "View on GitHub" link
 
 
 They link to and highlight the corresponding code block in your GitHub repository:
 
+.. only:: pypi
+
+   |
 
 .. image:: _static/github_linked_code.png
-
+   :alt: The linked corresponding highlighted source code block on GitHub
 
 
 .. note::
 
-   These links can be used with/instead of the links added by :mod:`sphinx.ext.viewcode`
-     * They use a newly added ``linkcode-link`` class which can be :doc:`styled using CSS <add_linkcode_class>`
-
+   These links can be :doc:`styled with CSS <add_linkcode_class>` and used with/instead
+   of the links added by :mod:`sphinx.ext.viewcode`
 
 
 Syntax Highlighting
 ====================
 
-``sphinx-github-style`` **also contains a** ``Pygments`` **style to highlight code blocks similar to GitHub:**
+``sphinx-github-style`` also contains a ``Pygments`` style to highlight code blocks similar to GitHub:
+
+.. only:: html
+
+   .. literalinclude:: ../../sphinx_github_style/__init__.py
+      :language: python
+      :lines: 227-239
+
+.. only:: readme or pypi
+
+   .. image:: _static/syntax_highlighting.png
+      :alt: A code block highlighted by the Pygments style. It looks identical to GitHub.
 
 
-.. literalinclude:: ../../sphinx_github_style/__init__.py
-   :language: python
-   :lines: 230-246
-
-
-|
 
 Installation
 ~~~~~~~~~~~~~~~~
@@ -110,7 +157,6 @@ To install using ``pip``::
 
  pip install sphinx-github-style
 
-|
 
 Configuration
 ~~~~~~~~~~~~~~~
@@ -128,62 +174,57 @@ Optional Configuration Variables
 
 Add any (or none) of the following configuration variables to your ``conf.py``
 
+.. only:: not readme and not pypi
 
-``top_level``
-^^^^^^^^^^^^^^^^^^^
-
-.. confval:: top_level
-
-   The name of the package's top-level module. For this repo, it would be ``sphinx_github_style``
-
-   :type: **str**
+   .. include:: configuration.rst.src
 
 
-``linkcode_blob``
-^^^^^^^^^^^^^^^^^^^
+.. only:: readme or pypi
 
-.. confval:: linkcode_blob
+   :confval:`top_level`
+    The name of the package's top-level module. For this repo, it would be ``sphinx_github_style``
 
-   The blob to link to on GitHub - any of ``"head"``, ``"last_tag"``, or ``"{blob}"``
+     **Type:** ``str``
 
-   * ``head`` (default): links to the most recent commit hash; if this commit is tagged, uses the tag instead
-   * ``last_tag``: links to the most recent commit tag on the currently checked out branch
-   * ``blob``: links to any blob you want, for example ``"master"`` or ``"v2.0.1"``
+   |
 
-   :type: **str**
-   :default: ``"head"``
+   :confval:`linkcode_blob`
+    The blob to link to on GitHub - any of ``"head"``, ``"last_tag"``, or ``"{blob}"``
 
+     **Type:** ``str``
 
-``linkcode_url``
-^^^^^^^^^^^^^^^^^^^
+     **Default:** ``"head"``
 
-.. confval:: linkcode_url
+    * ``"head"`` (default): links to the most recent commit hash; if this commit is tagged, uses the tag instead
+    * ``"last_tag"``: links to the most recent commit tag on the currently checked out branch
+    * ``"blob"``: links to any blob you want, for example ``"master"`` or ``"v2.0.1"``
 
-   The link to your GitHub repository formatted as ``https://github.com/user/repo``
+   |
 
-   * If not provided, will attempt to create the link from the :external+sphinx:confval:`html_context` dict
+   :confval:`linkcode_url`
+    The link to your GitHub repository formatted as ``https://github.com/user/repo``
 
-   :type: **str**
-   :default: ``f"https://github.com/{html_context['github_user']}/{html_context['github_repo']}/{html_context['github_version']}"``
+     **Type:** ``str``
 
+     **Default:** ``f"https://github.com/{html_context['github_user']}/{html_context['github_repo']}/{html_context['github_version']}"``
 
-``linkcode_link_text``
-^^^^^^^^^^^^^^^^^^^^^^
+    * If not provided, will attempt to create the link from the :external+sphinx:confval:`html_context` dict
 
-.. confval:: linkcode_link_text
+   |
 
-   The text to use for the linkcode link
+   :confval:`linkcode_link_text`
+    The text to use for the linkcode link
 
-   :type: **str**
-   :default: ``"View on GitHub"``
+     **Type:** ``str``
 
+     **Default:** ``"View on GitHub"``
 
-``linkcode_resolve``
-^^^^^^^^^^^^^^^^^^^^^^^^
+   |
 
-.. confval:: linkcode_resolve
+   :confval:`linkcode_resolve`
+    A ``linkcode_resolve()`` function to use when resolving the link target with :mod:`sphinx.ext.linkcode`
 
-   A ``linkcode_resolve()`` function to use when resolving the link target with :mod:`sphinx.ext.linkcode`
+     **Type:** ``Callable``
 
-   :type: **Callable**
-   :default: Return value from :func:`~.get_linkcode_resolve`
+     **Default:** Return value from :func:`~.get_linkcode_resolve`
+

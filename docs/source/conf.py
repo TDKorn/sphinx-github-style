@@ -123,6 +123,7 @@ extensions = [
     'sphinx_github_style',
     'sphinx_inlinecode',
     'sphinx_sitemap',
+    'sphinx_readme',
 ]
 
 # ====================== Extra Settings for Extensions ========================
@@ -162,12 +163,30 @@ if on_rtd:
 else:
     # For gh-pages use master
     linkcode_blob = 'master'
+    # For sphinx_readme image links in README
+    readme_blob = 'last_tag'
 
 # Text to use for the linkcode link
 linkcode_link_text = "View on GitHub"
 
 # Source URL template; formatted + returned by linkcode_resolve
 linkcode_url = f"https://github.com/{html_context['github_user']}/{repo}"
+
+
+# ~~~~ Sphinx README ~~~~
+#
+# Blob to use when linking to GitHub source code
+readme_src_files = 'README.rst'
+
+readme_docs_url_type = 'html'
+
+# Settings to uncomment when generating PyPi README
+
+# readme_tags = ["pypi"]
+#
+# readme_raw_directive = False
+#
+# readme_inline_markup = False
 
 
 # ---- Skip and Setup Method -------------------------------------------------
