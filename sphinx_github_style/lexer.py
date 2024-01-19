@@ -2,17 +2,17 @@ import builtins
 from pathlib import Path
 from types import ModuleType
 from pygments.token import Name, Keyword
-from typing import Type, Optional, Set, Any
 from pygments.lexers.python import PythonLexer
+from typing import Type, Optional, Set, Any, Dict
 from inspect import getmembers, isfunction, ismethod, ismodule, isclass, isbuiltin, ismethoddescriptor
 
 
-def is_module_in_package(object, top_level):
+def is_module_in_package(object: Any, top_level: str) -> bool:
     """Predicate to determine if an object is a module within a top level package"""
     return ismodule(object) and object.__name__.startswith(top_level)
 
 
-def is_class_in_package(object, top_level):
+def is_class_in_package(object: Any, top_level: str) -> bool:
     """Predicate to determine if an object is a class within a top level package"""
     return isclass(object) and object.__module__.startswith(top_level)
 
@@ -59,8 +59,8 @@ def get_pkg_funcs(pkg_module: ModuleType, top_level: str, funcs_meths: Set[str] 
     return funcs_meths
 
 
-def get_funcs_from_external_module(module: ModuleType, funcs_meths: Set[str]):
-    """Adds functions/methods contained within an imported external module"""
+def get_funcs_from_external_module(module: ModuleType, funcs_meths: Set[str]) -> Set[str]:
+    """Adds functions/methods contained directly within an imported external module"""
     funcs_meths.update(get_funcs(module))
     top_level = module.__name__
 
@@ -71,11 +71,13 @@ def get_funcs_from_external_module(module: ModuleType, funcs_meths: Set[str]):
 
 
 def get_funcs(of: Any) -> Set[str]:
+    """Returns the names of all members of the provided object that are functions or methods"""
     members = getmembers(of, lambda obj: isfunction(obj) or ismethod(obj))
     return set(dict(members))
 
 
-def get_builtins():
+def get_builtins() -> Dict[str, Set]:
+    """Returns a dictionary containing names of built-in functions, classes, and methods"""
     funcs_meths = set(dict(getmembers(builtins, isbuiltin)))
     classes = set()
 
@@ -93,10 +95,9 @@ def get_builtins():
 BUILTINS = get_builtins()
 
 
-class TDKMethLexer(PythonLexer):
-    """Adds syntax highlighting for methods and functions within a python Package
+class TDKLexer(PythonLexer):
+    """A Pygments Lexer that adds syntax highlighting for the methods, classes, type hints, etc. in a Python package"""
 
-    """
     name = 'TDK'
     url = 'https://github.com/TDKorn'
     aliases = ['tdk']
@@ -106,7 +107,11 @@ class TDKMethLexer(PythonLexer):
     CLASSES = BUILTINS['classes']
 
     @classmethod
-    def get_pkg_lexer(cls, pkg_name: Optional[str] = None) -> Type["TDKMethLexer"]:
+    def get_pkg_lexer(cls, pkg_name: Optional[str] = None) -> Type["TDKLexer"]:
+        """Returns a lexer capable of highlighting all funcs/methods/classes/type hints within the provided package
+
+        :param pkg_name: the name of the package's top-level module
+        """
         if pkg_name:
             cls.TOP_LEVEL = pkg_name
 
@@ -121,6 +126,7 @@ class TDKMethLexer(PythonLexer):
         return cls
 
     def get_tokens_unprocessed(self, text):
+        """Override to add better syntax highlighting"""
         tokens = list(PythonLexer.get_tokens_unprocessed(self, text))
 
         for token_idx, (index, token, value) in enumerate(tokens):

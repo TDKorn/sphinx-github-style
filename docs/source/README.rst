@@ -53,7 +53,8 @@ GitHub source code links and syntax highlighting for Sphinx docs
 About
 ~~~~~~~~~~~~~
 
-``sphinx-github-style`` is a Sphinx extension that makes your docs look like and link to GitHub
+``sphinx-github-style`` is a Sphinx extension that links your documentation to GitHub source code.
+It also adds syntax highlighting for code blocks similar to GitHub's pretty lights dark theme.
 
 ...
 
@@ -62,33 +63,42 @@ GitHub Source Code Links
 ===============================
 
 
-Using :mod:`sphinx.ext.linkcode`,  a ``View on GitHub`` link is added to the documentation of every class, method and function:
+Using :mod:`sphinx.ext.linkcode`,  a ``View on GitHub`` link is added to the documentation of every class, method, function, and property:
 
-.. image:: https://user-images.githubusercontent.com/96394652/220941352-f5530a56-d338-4b90-b83a-4b22b0f632fe.png
-   :alt: sphinx github style adds a "View on GitHub" link
+.. only:: html
 
-They link to and highlight the corresponding code block in your GitHub repo:
+   .. autofunction:: sphinx_github_style.__init__.get_repo_dir
+      :no-index:
 
-.. image:: https://user-images.githubusercontent.com/96394652/220945912-447173db-2ac7-4e00-bec5-3859753bf687.png
+.. only:: not html
+
+   .. image:: https://user-images.githubusercontent.com/96394652/220941352-f5530a56-d338-4b90-b83a-4b22b0f632fe.png
+      :alt: sphinx github style adds a "View on GitHub" link
 
 
-|
+They link to and highlight the corresponding code block in your GitHub repository:
+
+
+.. image:: _static/github_linked_code.png
+
+
 
 .. note::
 
    These links can be used with/instead of the links added by :mod:`sphinx.ext.viewcode`
-     * They use a newly added ``linkcode-link`` class which can be styled using CSS
+     * They use a newly added ``linkcode-link`` class which can be :doc:`styled using CSS <add_linkcode_class>`
 
 
-|
 
 Syntax Highlighting
 ====================
 
-``sphinx-github-style`` **also contains a** ``Pygments`` **style to highlight code in your documentation similar to GitHub:**
+``sphinx-github-style`` **also contains a** ``Pygments`` **style to highlight code blocks similar to GitHub:**
 
 
-.. image:: https://user-images.githubusercontent.com/96394652/220946796-bf7aa236-964d-48e7-83e2-142aac00b0dd.png
+.. literalinclude:: ../../sphinx_github_style/__init__.py
+   :language: python
+   :lines: 230-246
 
 
 |
@@ -127,7 +137,6 @@ Add any (or none) of the following configuration variables to your ``conf.py``
    The name of the package's top-level module. For this repo, it would be ``sphinx_github_style``
 
    :type: **str**
-   :default: Return value from :func:`~.get_top_level`
 
 
 ``linkcode_blob``
@@ -178,15 +187,3 @@ Add any (or none) of the following configuration variables to your ``conf.py``
 
    :type: **Callable**
    :default: Return value from :func:`~.get_linkcode_resolve`
-
-
-|
-
-Noteworthy Components
-~~~~~~~~~~~~~~~~~~~~~
-
-* :class:`~.TDKStyle` - Pygments Style for syntax highlighting similar to Github Pretty Lights Dark Theme
-* :class:`~.TDKMethLexer` - Pygments Lexer to add syntax highlighting to methods
-* :func:`~.get_linkcode_resolve` - to link to GitHub source code using ``sphinx.ext.linkcode``
-* :func:`~.add_linkcode_node_class` - adds a new ``linkcode-link`` class, allowing for CSS styling separately from ``viewcode`` links
-* |.github_style|_ - CSS styling for linkcode links (icon + text)

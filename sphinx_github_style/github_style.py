@@ -42,7 +42,7 @@ pl = {
 
 
 class TDKStyle(Style):
-    """An attempt at creating a Pygments style similar to GitHub's pretty lights dark theme"""
+    """A Pygments style similar to GitHub's pretty lights dark theme"""
 
     background_color = "#0d1117"
     default_style = ''
@@ -123,6 +123,7 @@ class TDKStyle(Style):
         Punctuation: "#f8f8f2",
         Punctuation.Definition.Comment: pl["syntax-comment"],
         String: pl["syntax-string"],
+        String.Affix: pl["syntax-string"],
         String.Backtick: pl["syntax-string"],
         String.Char: pl["syntax-string"],
         String.Comment: pl["syntax-comment"],

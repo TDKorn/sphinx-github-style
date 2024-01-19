@@ -14,4 +14,4 @@ The ``sphinx_github_style`` Package
 
    add_linkcode_class
    github_style
-   meth_lexer
+   lexer

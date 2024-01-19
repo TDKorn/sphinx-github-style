@@ -1,10 +1,8 @@
 .. |.github_style| replace:: ``github_style.css``
 .. _.github_style: https://github.com/tdkorn/sphinx-github-style/tree/v1.0.0/sphinx_github_style/_static/github_style.css
 
-The ``add_linkcode_class`` module
+CSS Styling for Linkcode Links
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Add Linkcode Class for CSS Styling
 
 .. automodule:: sphinx_github_style.add_linkcode_class
    :members:

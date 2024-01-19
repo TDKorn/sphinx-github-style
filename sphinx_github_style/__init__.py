@@ -13,8 +13,8 @@ __version__ = "1.0.5"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 from .add_linkcode_class import add_linkcode_node_class
-from .meth_lexer import TDKMethLexer
 from .github_style import TDKStyle
+from .lexer import TDKLexer
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
@@ -32,7 +32,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     repo_dir = get_repo_dir()
 
     top_level = get_conf_val(app, 'top_level')
-    TDKMethLexer.TOP_LEVEL = top_level
+    TDKLexer.TOP_LEVEL = top_level
 
     if not callable(linkcode_func):
         print(
@@ -60,8 +60,8 @@ def add_static_path(app) -> None:
 
 
 def add_lexer(app: Sphinx, env) -> None:
-    """Registers the :class:`~.TDKMethLexer` to add GitHub dark syntax highlighting"""
-    app.add_lexer('python', TDKMethLexer.get_pkg_lexer())
+    """Registers the :class:`~.TDKLexer` to add better syntax highlighting"""
+    app.add_lexer('python', TDKLexer.get_pkg_lexer())
 
 
 def get_linkcode_revision(blob: str) -> str:
@@ -177,9 +177,9 @@ def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None, top
         modname = info['module']
         fullname = info['fullname']
 
-        if TDKMethLexer.TOP_LEVEL is None:
+        if TDKLexer.TOP_LEVEL is None:
             pkg_name = modname.split('.')[0]
-            TDKMethLexer.TOP_LEVEL = pkg_name
+            TDKLexer.TOP_LEVEL = pkg_name
 
         submod = sys.modules.get(modname)
         if submod is None:

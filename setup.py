@@ -20,7 +20,7 @@ def get_version():
 setup(
     name="sphinx-github-style",
     version=get_version(),
-    description="Sphinx Github Integration and Github Dark Theme Pygments Style",
+    description="GitHub source code links and syntax highlighting for Sphinx documentation",
     long_description=read(LONG_DESCRIPTION_SRC),
     long_description_content_type="text/x-rst; charset=UTF-8",
     author="Adam Korn",
