@@ -4,6 +4,7 @@ import sphinx
 import inspect
 import subprocess
 from pathlib import Path
+from functools import cached_property
 from sphinx.application import Sphinx
 from sphinx.errors import ExtensionError
 from typing import Dict, Any, Optional, Callable
@@ -191,6 +192,11 @@ def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None, top
             except AttributeError:
                 return None
 
+        if isinstance(obj, property):
+            obj = obj.fget
+        elif isinstance(obj, cached_property):
+            obj = obj.func
+
         try:
             modpath = inspect.getsourcefile(inspect.unwrap(obj))
             filepath = Path(modpath).relative_to(repo_dir)
@@ -201,10 +207,10 @@ def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None, top
 
         try:
             source, lineno = inspect.getsourcelines(obj)
-        except OSError:
+        except Exception:
             return None
-        else:
-            linestart, linestop = lineno, lineno + len(source) - 1
+
+        linestart, linestop = lineno, lineno + len(source) - 1
 
         # Example: https://github.com/TDKorn/my-magento/blob/docs/magento/models/model.py#L28-L59
         final_link = linkcode_url.format(
