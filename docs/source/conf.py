@@ -121,6 +121,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.linkcode',
     'sphinx_github_style',
+    'sphinx_inlinecode',
     'sphinx_sitemap',
 ]
 
