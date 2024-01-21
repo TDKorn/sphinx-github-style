@@ -26,10 +26,6 @@
    :description: A Sphinx extension to add GitHub source code links and syntax highlighting
 
 
-.. |.github_style| replace:: ``github_style.css``
-.. _.github_style: https://github.com/tdkorn/sphinx-github-style/tree/v1.0.4/sphinx_github_style/_static/github_style.css
-
-
 
 
 
@@ -145,7 +141,7 @@ Syntax Highlighting
 
 
 
-.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/v1.1.0/docs/source/_static/syntax_highlighting.png
+.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/master/docs/source/_static/syntax_highlighting.png
    :alt: A code block highlighted by the Pygments style. It looks identical to GitHub.
 
 
