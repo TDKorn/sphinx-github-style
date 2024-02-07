@@ -137,7 +137,7 @@ Syntax Highlighting
 
    .. literalinclude:: ../../sphinx_github_style/__init__.py
       :language: python
-      :lines: 226-238
+      :lines: 232-244
 
 .. only:: readme or pypi
 

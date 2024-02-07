@@ -33,7 +33,13 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     top_level = get_conf_val(app, 'top_level')
     TDKLexer.TOP_LEVEL = top_level
 
-    if not callable(linkcode_func):
+    if callable(linkcode_func):
+        if not top_level:
+            raise ExtensionError(
+                "``sphinx-github-style``: must set the `top_level` confval"
+                " or use the default `linkcode_resolve` function"
+            )
+    else:
         print(
             "Function `linkcode_resolve` not found in ``conf.py``; "
             "using default function from ``sphinx_github_style``"
