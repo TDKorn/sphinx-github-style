@@ -52,7 +52,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.setup_extension('sphinx.ext.linkcode')
 
     # Add lexer after linkcode sets the top level
-    app.connect('env-updated', add_lexer)
+    app.connect('env-check-consistency', add_lexer)
 
     return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
 
