@@ -39,12 +39,11 @@ def get_pkg_funcs(pkg_module: ModuleType, top_level: str, funcs_meths: Set[str] 
         if mod in processed_modules:
             continue
 
-        processed_modules.add(mod)
-    
         try:
              mod_path = Path(mod.__file__)
         except AttributeError:  # It's a built-in module
             funcs_meths.update(get_funcs(mod))
+            processed_modules.add(mod)
             continue
 
         if is_module_in_package(mod, top_level):
@@ -55,6 +54,8 @@ def get_pkg_funcs(pkg_module: ModuleType, top_level: str, funcs_meths: Set[str] 
 
         else:  # For external modules, avoid recursion into submodules
             get_funcs_from_external_module(mod, funcs_meths)
+
+        processed_modules.add(mod)
 
     return funcs_meths
 
