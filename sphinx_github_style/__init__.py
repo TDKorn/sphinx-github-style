@@ -19,7 +19,6 @@ from .lexer import TDKLexer
 def setup(app: Sphinx) -> Dict[str, Any]:
     app.connect("builder-inited", add_static_path)
     app.add_config_value('linkcode_blob', 'head', True)
-    app.add_config_value('top_level', None, True)
 
     linkcode_blob = get_conf_val(app, "linkcode_blob")
     linkcode_url = get_linkcode_url(
@@ -30,29 +29,18 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     linkcode_func = get_conf_val(app, "linkcode_resolve")
     repo_dir = get_repo_dir()
 
-    top_level = get_conf_val(app, 'top_level')
-    TDKLexer.TOP_LEVEL = top_level
-
-    if callable(linkcode_func):
-        if not top_level:
-            raise ExtensionError(
-                "``sphinx-github-style``: must set the `top_level` confval"
-                " or use the default `linkcode_resolve` function"
-            )
-    else:
+    if not callable(linkcode_func):
         print(
             "Function `linkcode_resolve` not found in ``conf.py``; "
             "using default function from ``sphinx_github_style``"
         )
-        linkcode_func = get_linkcode_resolve(linkcode_url, repo_dir, top_level)
+        linkcode_func = get_linkcode_resolve(linkcode_url, repo_dir)
         set_conf_val(app, 'linkcode_resolve', linkcode_func)
 
     app.setup_extension('sphinx_github_style.add_linkcode_class')
     app.setup_extension('sphinx_github_style.github_style')
     app.setup_extension('sphinx.ext.linkcode')
-
-    # Add lexer after linkcode sets the top level
-    app.connect('env-check-consistency', add_lexer)
+    app.add_lexer('python', TDKLexer)
 
     return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
 
@@ -62,11 +50,6 @@ def add_static_path(app) -> None:
     app.config.html_static_path.append(
         str(Path(__file__).parent.joinpath("_static").absolute())
     )
-
-
-def add_lexer(app: Sphinx, env) -> None:
-    """Registers the :class:`~.TDKLexer` to add better syntax highlighting"""
-    app.add_lexer('python', TDKLexer.get_pkg_lexer())
 
 
 def get_linkcode_revision(blob: str) -> str:
@@ -156,14 +139,13 @@ def get_linkcode_url(blob: Optional[str] = None, context: Optional[Dict] = None,
     return url + "{filepath}#L{linestart}-L{linestop}"
 
 
-def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None, top_level: Optional[str] = None) -> Callable:
+def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None) -> Callable:
     """Defines and returns a ``linkcode_resolve`` function for your package
 
     Used by default if ``linkcode_resolve`` isn't defined in ``conf.py``
 
     :param linkcode_url: The template URL to use when resolving cross-references with :mod:`sphinx.ext.linkcode`
     :param repo_dir: The root directory of the Git repository.
-    :param top_level: The name of the package's top-level module.
     """
     if repo_dir is None:
         repo_dir = get_repo_dir()
@@ -181,10 +163,6 @@ def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None, top
 
         modname = info['module']
         fullname = info['fullname']
-
-        if TDKLexer.TOP_LEVEL is None:
-            pkg_name = modname.split('.')[0]
-            TDKLexer.TOP_LEVEL = pkg_name
 
         submod = sys.modules.get(modname)
         if submod is None:
