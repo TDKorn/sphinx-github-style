@@ -8,7 +8,7 @@ from sphinx.application import Sphinx
 from sphinx.errors import ExtensionError
 from typing import Dict, Any, Optional, Callable
 
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 from .add_linkcode_class import add_linkcode_node_class
