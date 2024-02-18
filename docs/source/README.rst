@@ -137,7 +137,8 @@ Syntax Highlighting
 
    .. literalinclude:: ../../sphinx_github_style/__init__.py
       :language: python
-      :lines: 212-224
+      :start-after: # EXAMPLE START
+      :end-before: # EXAMPLE END
 
 .. only:: readme or pypi
 
@@ -177,12 +178,6 @@ Add any (or none) of the following configuration variables to your ``conf.py``
 
 .. only:: readme or pypi
 
-   :confval:`top_level`
-    The name of the package's top-level module. For this repo, it would be ``sphinx_github_style``
-
-     **Type:** ``str``
-
-   |
 
    :confval:`linkcode_blob`
     The blob to link to on GitHub - any of ``"head"``, ``"last_tag"``, or ``"{blob}"``

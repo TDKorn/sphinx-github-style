@@ -1,14 +1,4 @@
 
-``top_level``
-^^^^^^^^^^^^^^^^^^^
-
-.. confval:: top_level
-
-   The name of the package's top-level module. For this repo, it would be ``sphinx_github_style``
-
-   :type: ``str``
-
-
 ``linkcode_blob``
 ^^^^^^^^^^^^^^^^^^^
 

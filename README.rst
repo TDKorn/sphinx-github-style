@@ -14,8 +14,6 @@
 .. _.sphinx.ext.linkcode: https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode
 .. |.sphinx.ext.viewcode| replace:: ``sphinx.ext.viewcode``
 .. _.sphinx.ext.viewcode: https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html#module-sphinx.ext.viewcode
-.. |top_level| replace:: ``top_level``
-.. _top_level: https://sphinx-github-style.readthedocs.io/en/latest/index.html#confval-top_level
 
 ..  Title: Sphinx Github Style
 ..  Description: A Sphinx extension to add GitHub source code links and syntax highlighting
@@ -172,13 +170,6 @@ Add any (or none) of the following configuration variables to your ``conf.py``
 
 
 
-
-|top_level|_
- The name of the package's top-level module. For this repo, it would be ``sphinx_github_style``
-
-  **Type:** ``str``
-
-|
 
 |linkcode_blob|_
  The blob to link to on GitHub - any of ``"head"``, ``"last_tag"``, or ``"{blob}"``

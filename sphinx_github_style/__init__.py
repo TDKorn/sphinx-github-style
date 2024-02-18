@@ -207,6 +207,7 @@ def get_linkcode_resolve(linkcode_url: str, repo_dir: Optional[Path] = None) -> 
     return linkcode_resolve
 
 
+# EXAMPLE START
 def get_repo_dir() -> Path:
     """Returns the root directory of the repository
 
@@ -220,6 +221,7 @@ def get_repo_dir() -> Path:
         raise RuntimeError("Unable to determine the repository directory") from e
 
     return repo_dir
+# EXAMPLE END
 
 
 def get_conf_val(app: Sphinx, attr: str, default: Optional[Any] = None) -> Any:
