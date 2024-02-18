@@ -12,8 +12,8 @@ __version__ = "1.1.2"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 from .add_linkcode_class import add_linkcode_node_class
-from .github_style import TDKStyle
-from .lexer import TDKLexer
+from .github_style import GitHubStyle
+from .lexer import GitHubLexer
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
@@ -40,7 +40,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.setup_extension('sphinx_github_style.add_linkcode_class')
     app.setup_extension('sphinx_github_style.github_style')
     app.setup_extension('sphinx.ext.linkcode')
-    app.add_lexer('python', TDKLexer)
+    app.add_lexer('python', GitHubLexer)
 
     return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
 

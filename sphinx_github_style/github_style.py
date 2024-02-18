@@ -41,7 +41,7 @@ pl = {
 }
 
 
-class TDKStyle(Style):
+class GitHubStyle(Style):
     """A Pygments style similar to GitHub's pretty lights dark theme"""
 
     background_color = "#0d1117"
@@ -141,6 +141,6 @@ class TDKStyle(Style):
 
 
 def setup(app):
-    app.config.pygments_style = 'sphinx_github_style.TDKStyle'
+    app.config.pygments_style = 'sphinx_github_style.GitHubStyle'
     app.add_css_file('github_style.css')
     return {'version': sphinx.__display_version__, 'parallel_read_safe': True}

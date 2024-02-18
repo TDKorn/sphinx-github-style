@@ -24,7 +24,7 @@ def get_builtins() -> Dict[str, Set]:
 BUILTINS = get_builtins()
 
 
-class TDKLexer(PythonLexer):
+class GitHubLexer(PythonLexer):
     """A Pygments Lexer that adds syntax highlighting for the methods, classes, type hints, etc. in a Python package"""
 
     name = 'TDK'
