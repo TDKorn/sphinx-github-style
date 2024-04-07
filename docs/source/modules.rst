@@ -3,7 +3,7 @@ The ``sphinx_github_style`` Package
 
 
 .. automodule:: sphinx_github_style.__init__
-   :members:
+   :members: setup
    :undoc-members:
 
 |
@@ -15,3 +15,9 @@ The ``sphinx_github_style`` Package
    add_linkcode_class
    github_style
    lexer
+
+.. toctree::
+   :caption: The Utils Subpackage
+   :titlesonly:
+
+   utils

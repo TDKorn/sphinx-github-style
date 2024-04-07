@@ -1,5 +1,5 @@
 .. |.~.get_linkcode_resolve| replace:: ``get_linkcode_resolve()``
-.. _.~.get_linkcode_resolve: https://sphinx-github-style.readthedocs.io/en/latest/modules.html#sphinx_github_style.__init__.get_linkcode_resolve
+.. _.~.get_linkcode_resolve: https://sphinx-github-style.readthedocs.io/en/latest/linkcode.html#sphinx_github_style.utils.linkcode.get_linkcode_resolve
 .. |linkcode_blob| replace:: ``linkcode_blob``
 .. _linkcode_blob: https://sphinx-github-style.readthedocs.io/en/latest/index.html#confval-linkcode_blob
 .. |linkcode_link_text| replace:: ``linkcode_link_text``

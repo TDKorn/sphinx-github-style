@@ -103,7 +103,7 @@ Using :mod:`sphinx.ext.linkcode`,  a ``View on GitHub`` link is added to the doc
 
 .. only:: html
 
-   .. autofunction:: sphinx_github_style.__init__.get_repo_dir
+   .. autofunction:: sphinx_github_style.utils.git.get_repo_dir
       :noindex:
 
 .. only:: readme or pypi
@@ -135,10 +135,9 @@ Syntax Highlighting
 
 .. only:: html
 
-   .. literalinclude:: ../../sphinx_github_style/__init__.py
+   .. literalinclude:: ../../sphinx_github_style/utils/git.py
       :language: python
-      :start-after: # EXAMPLE START
-      :end-before: # EXAMPLE END
+      :pyobject: get_repo_dir
 
 .. only:: readme or pypi
 
