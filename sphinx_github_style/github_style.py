@@ -139,8 +139,3 @@ class GitHubStyle(Style):
         Text: pl["syntax-markup-bold"],
     }
 
-
-def setup(app):
-    app.config.pygments_style = 'sphinx_github_style.GitHubStyle'
-    app.add_css_file('github_style.css')
-    return {'version': sphinx.__display_version__, 'parallel_read_safe': True}

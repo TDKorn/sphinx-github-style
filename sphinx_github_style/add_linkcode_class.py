@@ -1,9 +1,7 @@
-import sphinx
 from sphinx.locale import _
 from sphinx.application import Sphinx
 from docutils.nodes import Node, Text
 from docutils import nodes
-from typing import Any, Dict
 
 
 def add_linkcode_node_class(app: Sphinx, doctree: Node, docname: str) -> None:
@@ -22,9 +20,3 @@ def add_linkcode_node_class(app: Sphinx, doctree: Node, docname: str) -> None:
             if node.parent.get('internal', None) is False:
                 node['classes'] = ['linkcode-link']
                 node.children = [Text(_(f'{link_text}'))]
-
-
-def setup(app: Sphinx) -> Dict[str, Any]:
-    app.connect('doctree-resolved', add_linkcode_node_class)
-    app.add_config_value('linkcode_link_text', 'View on GitHub', 'html')
-    return {'version': sphinx.__display_version__, 'parallel_read_safe': True}

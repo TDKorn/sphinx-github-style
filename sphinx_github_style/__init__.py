@@ -17,8 +17,12 @@ from .lexer import GitHubLexer
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
+    app.setup_extension('sphinx.ext.linkcode')
     app.connect("builder-inited", add_static_path)
+    app.connect('doctree-resolved', add_linkcode_node_class)
+
     app.add_config_value('linkcode_blob', 'head', True)
+    app.add_config_value('linkcode_link_text', 'View on GitHub', 'html')
 
     linkcode_blob = get_conf_val(app, "linkcode_blob")
     linkcode_url = get_linkcode_url(
@@ -37,10 +41,9 @@ def setup(app: Sphinx) -> Dict[str, Any]:
         linkcode_func = get_linkcode_resolve(linkcode_url, repo_dir)
         set_conf_val(app, 'linkcode_resolve', linkcode_func)
 
-    app.setup_extension('sphinx_github_style.add_linkcode_class')
-    app.setup_extension('sphinx_github_style.github_style')
-    app.setup_extension('sphinx.ext.linkcode')
     app.add_lexer('python', GitHubLexer)
+    app.add_css_file('github_style.css')
+    app.config.pygments_style = 'sphinx_github_style.GitHubStyle'
 
     return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
 
