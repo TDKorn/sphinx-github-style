@@ -2,6 +2,8 @@ import sphinx
 from pathlib import Path
 from typing import Dict, Any
 from sphinx.application import Sphinx
+from .utils.sphinx import get_conf_val, set_conf_val
+from .utils.linkcode import get_linkcode_url, get_linkcode_revision, get_linkcode_resolve
 
 __version__ = "1.2.0"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
@@ -9,10 +11,6 @@ __author__ = 'Adam Korn <hello@dailykitten.net>'
 from .add_linkcode_class import add_linkcode_node_class
 from .github_style import GitHubStyle
 from .lexer import GitHubLexer
-
-from .utils.linkcode import get_linkcode_url, get_linkcode_revision, get_linkcode_resolve
-from .utils.sphinx import get_conf_val, set_conf_val
-from .utils.git import get_repo_dir
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
@@ -30,14 +28,13 @@ def setup(app: Sphinx) -> Dict[str, Any]:
         context=get_conf_val(app, 'html_context'),
     )
     linkcode_func = get_conf_val(app, "linkcode_resolve")
-    repo_dir = get_repo_dir()
 
     if not callable(linkcode_func):
         print(
             "Function `linkcode_resolve` not found in ``conf.py``; "
             "using default function from ``sphinx_github_style``"
         )
-        linkcode_func = get_linkcode_resolve(linkcode_url, repo_dir)
+        linkcode_func = get_linkcode_resolve(linkcode_url)
         set_conf_val(app, 'linkcode_resolve', linkcode_func)
 
     app.add_lexer('python', GitHubLexer)
