@@ -35,7 +35,7 @@
    <div align="center">
 
 
-.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/v1.2.1/docs/source/_static/logo_square_grey_blue.png
+.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/v1.2.2/docs/source/_static/logo_square_grey_blue.png
    :alt: Sphinx GitHub Style: GitHub Integration and Pygments Style for Sphinx Documentation
    :width: 25%
 
@@ -99,7 +99,7 @@ Using |.sphinx.ext.linkcode|_,  a ``View on GitHub`` link is added to the docume
 
 
 
-.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/v1.2.1/docs/source/_static/github_link.png
+.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/v1.2.2/docs/source/_static/github_link.png
    :alt: sphinx-github-style adds a "View on GitHub" link
 
 
@@ -107,7 +107,7 @@ They link to and highlight the corresponding code block in your GitHub repositor
 
 
 
-.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/v1.2.1/docs/source/_static/github_linked_code.png
+.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/v1.2.2/docs/source/_static/github_linked_code.png
    :alt: The linked corresponding highlighted source code block on GitHub
 
 
@@ -142,7 +142,7 @@ Syntax Highlighting
 
 
 
-.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/v1.2.1/docs/source/_static/syntax_highlighting.png
+.. image:: https://raw.githubusercontent.com/TDKorn/sphinx-github-style/v1.2.2/docs/source/_static/syntax_highlighting.png
    :alt: A code block highlighted by the Pygments style. It looks identical to GitHub.
 
 

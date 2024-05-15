@@ -5,7 +5,7 @@ from sphinx.application import Sphinx
 from .utils.sphinx import get_conf_val, set_conf_val
 from .utils.linkcode import get_linkcode_url, get_linkcode_revision, get_linkcode_resolve
 
-__version__ = "1.2.1"
+__version__ = "1.2.2"
 __author__ = 'Adam Korn <hello@dailykitten.net>'
 
 from .add_linkcode_class import add_linkcode_node_class
