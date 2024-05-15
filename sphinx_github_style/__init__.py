@@ -37,9 +37,11 @@ def setup(app: Sphinx) -> Dict[str, Any]:
         linkcode_func = get_linkcode_resolve(linkcode_url)
         set_conf_val(app, 'linkcode_resolve', linkcode_func)
 
+    if not get_conf_val(app, 'pygments_style'):
+        set_conf_val(app, 'pygments_style', 'sphinx_github_style.GitHubStyle')
+
     app.add_lexer('python', GitHubLexer)
     app.add_css_file('github_style.css')
-    app.config.pygments_style = 'sphinx_github_style.GitHubStyle'
 
     return {'version': sphinx.__display_version__, 'parallel_read_safe': True}
 
