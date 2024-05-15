@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="writer-html5" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The sphinx_github_style Package — sphinx-github-style 1.2.2 documentation</title>
+<link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="_static/github_style.css" rel="stylesheet" type="text/css"/>
+<link href="_static/sphinx-inlinecode.css" rel="stylesheet" type="text/css"/>
+<link href="_static/custom.css" rel="stylesheet" type="text/css"/>
+<link href="https://sphinx-github-style.readthedocs.io/en/latest/modules.html" rel="canonical"/>
+<!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+<script src="_static/jquery.js"></script>
+<script src="_static/underscore.js"></script>
+<script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="_static/doctools.js"></script>
+<script src="_static/sphinx_highlight.js"></script>
+<script src="_static/sphinx-inlinecode.js"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="add_linkcode_class.html" rel="next" title="CSS Styling for Linkcode Links"/>
+<link href="index.html" rel="prev" title="sphinx-github-style - GitHub source code links and syntax highlighting for Sphinx documentation"/>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="contents.html">
+            sphinx-github-style
+              <img alt="Logo" class="logo" src="_static/logo_square.ico"/>
+</a>
+<div class="version">
+                1.2.2
+              </div>
+<div role="search">
+<form action="search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">README</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#about">About</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#github-source-code-links">GitHub Source Code Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#syntax-highlighting">Syntax Highlighting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#configuration">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#optional-configuration-variables">Optional Configuration Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#linkcode-blob"><code class="docutils literal notranslate"><span class="pre">linkcode_blob</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#linkcode-url"><code class="docutils literal notranslate"><span class="pre">linkcode_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#linkcode-link-text"><code class="docutils literal notranslate"><span class="pre">linkcode_link_text</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#linkcode-resolve"><code class="docutils literal notranslate"><span class="pre">linkcode_resolve</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style</span></code> Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sphinx_github_style.__init__.setup"><code class="docutils literal notranslate"><span class="pre">setup()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="add_linkcode_class.html">CSS Styling for Linkcode Links</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="add_linkcode_class.html#sphinx_github_style.add_linkcode_class.add_linkcode_node_class"><code class="docutils literal notranslate"><span class="pre">add_linkcode_node_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="add_linkcode_class.html#the-github-style-stylesheet">The <code class="docutils literal notranslate"><span class="pre">github_style.css</span></code> StyleSheet</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="github_style.html">GitHub Dark Theme Pygments Style</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="github_style.html#sphinx_github_style.github_style.GitHubStyle"><code class="docutils literal notranslate"><span class="pre">GitHubStyle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="github_style.html#sphinx_github_style.github_style.GitHubStyle.background_color"><code class="docutils literal notranslate"><span class="pre">GitHubStyle.background_color</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="github_style.html#sphinx_github_style.github_style.GitHubStyle.default_style"><code class="docutils literal notranslate"><span class="pre">GitHubStyle.default_style</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="github_style.html#sphinx_github_style.github_style.GitHubStyle.styles"><code class="docutils literal notranslate"><span class="pre">GitHubStyle.styles</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lexer.html">Pygments Lexer for Syntax Highlighting of Methods, Classes, Type Hints, and more</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.get_builtins"><code class="docutils literal notranslate"><span class="pre">get_builtins()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.GitHubLexer"><code class="docutils literal notranslate"><span class="pre">GitHubLexer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.GitHubLexer.name"><code class="docutils literal notranslate"><span class="pre">GitHubLexer.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.GitHubLexer.url"><code class="docutils literal notranslate"><span class="pre">GitHubLexer.url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.GitHubLexer.aliases"><code class="docutils literal notranslate"><span class="pre">GitHubLexer.aliases</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.GitHubLexer.get_tokens_unprocessed"><code class="docutils literal notranslate"><span class="pre">GitHubLexer.get_tokens_unprocessed()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils</span></code> subpackage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="git.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils.git</span></code> submodule</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="git.html#sphinx_github_style.utils.git.get_head"><code class="docutils literal notranslate"><span class="pre">get_head()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="git.html#sphinx_github_style.utils.git.get_last_tag"><code class="docutils literal notranslate"><span class="pre">get_last_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="git.html#sphinx_github_style.utils.git.get_repo_dir"><code class="docutils literal notranslate"><span class="pre">get_repo_dir()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="linkcode.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils.linkcode</span></code> submodule</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="linkcode.html#sphinx_github_style.utils.linkcode.get_linkcode_revision"><code class="docutils literal notranslate"><span class="pre">get_linkcode_revision()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="linkcode.html#sphinx_github_style.utils.linkcode.get_linkcode_url"><code class="docutils literal notranslate"><span class="pre">get_linkcode_url()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="linkcode.html#sphinx_github_style.utils.linkcode.get_linkcode_resolve"><code class="docutils literal notranslate"><span class="pre">get_linkcode_resolve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sphinx.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils.sphinx</span></code> submodule</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sphinx.html#sphinx_github_style.utils.sphinx.get_conf_val"><code class="docutils literal notranslate"><span class="pre">get_conf_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sphinx.html#sphinx_github_style.utils.sphinx.set_conf_val"><code class="docutils literal notranslate"><span class="pre">set_conf_val()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contents.html">Table Of Contents</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="contents.html">sphinx-github-style</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="contents.html"></a></li>
+<li class="breadcrumb-item active">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style</span></code> Package</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/TDKorn/sphinx-github-style/blob/modules.rst"> Edit on GitHub</a>
+</li>
+</ul><div aria-label="Sequential page navigation" class="rst-breadcrumbs-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" title="sphinx-github-style - GitHub source code links and syntax highlighting for Sphinx documentation"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="add_linkcode_class.html" title="CSS Styling for Linkcode Links">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-sphinx_github_style.__init__">
+<span id="the-sphinx-github-style-package"></span><h1>The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style</span></code> Package<a class="headerlink" href="#module-sphinx_github_style.__init__" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="sphinx_github_style.__init__.setup">
+<span class="sig-prename descclassname"><span class="pre">sphinx_github_style.__init__.</span></span><span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/TDKorn/sphinx-github-style/blob/master/sphinx_github_style/__init__.py#L16-L46"><span class="linkcode-link"><span class="pre">View</span> <span class="pre">on</span> <span class="pre">GitHub</span></span></a><a class="headerlink" href="#sphinx_github_style.__init__.setup" title="Permalink to this definition"></a>
+<details class="sphinx-inlinecode">
+<summary>
+<span class="pre">View Source Code</span>
+</summary>
+<div class="highlight"><pre><div class="viewcode-block" id="sphinx_github_style.__init__.setup"><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="nc">Sphinx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nc">Dict</span><span class="p">[</span><span class="bp">str</span><span class="p">,</span> <span class="nc">Any</span><span class="p">]:</span>
+    <span class="n">app</span><span class="o">.</span><span class="kp">setup_extension</span><span class="p">(</span><span class="s1">'sphinx.ext.linkcode'</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="kp">connect</span><span class="p">(</span><span class="s2">"builder-inited"</span><span class="p">,</span> <span class="n">add_static_path</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="kp">connect</span><span class="p">(</span><span class="s1">'doctree-resolved'</span><span class="p">,</span> <span class="n">add_linkcode_node_class</span><span class="p">)</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="kp">add_config_value</span><span class="p">(</span><span class="s1">'linkcode_blob'</span><span class="p">,</span> <span class="s1">'head'</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="kp">add_config_value</span><span class="p">(</span><span class="s1">'linkcode_link_text'</span><span class="p">,</span> <span class="s1">'View on GitHub'</span><span class="p">,</span> <span class="s1">'html'</span><span class="p">)</span>
+
+    <span class="n">linkcode_blob</span> <span class="o">=</span> <span class="kp">get_conf_val</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s2">"linkcode_blob"</span><span class="p">)</span>
+    <span class="n">linkcode_url</span> <span class="o">=</span> <span class="kp">get_linkcode_url</span><span class="p">(</span>
+        <span class="n">blob</span><span class="o">=</span><span class="kp">get_linkcode_revision</span><span class="p">(</span><span class="n">linkcode_blob</span><span class="p">),</span>
+        <span class="n">url</span><span class="o">=</span><span class="kp">get_conf_val</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s1">'linkcode_url'</span><span class="p">),</span>
+        <span class="n">context</span><span class="o">=</span><span class="kp">get_conf_val</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s1">'html_context'</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">linkcode_func</span> <span class="o">=</span> <span class="kp">get_conf_val</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s2">"linkcode_resolve"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">linkcode_func</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">"Function `linkcode_resolve` not found in ``conf.py``; "</span>
+            <span class="s2">"using default function from ``sphinx_github_style``"</span>
+        <span class="p">)</span>
+        <span class="n">linkcode_func</span> <span class="o">=</span> <span class="kp">get_linkcode_resolve</span><span class="p">(</span><span class="n">linkcode_url</span><span class="p">)</span>
+        <span class="kp">set_conf_val</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s1">'linkcode_resolve'</span><span class="p">,</span> <span class="n">linkcode_func</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="kp">get_conf_val</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s1">'pygments_style'</span><span class="p">):</span>
+        <span class="kp">set_conf_val</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s1">'pygments_style'</span><span class="p">,</span> <span class="s1">'sphinx_github_style.GitHubStyle'</span><span class="p">)</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="kp">add_lexer</span><span class="p">(</span><span class="s1">'python'</span><span class="p">,</span> <span class="nc">GitHubLexer</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="kp">add_css_file</span><span class="p">(</span><span class="s1">'github_style.css'</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s1">'version'</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">__display_version__</span><span class="p">,</span> <span class="s1">'parallel_read_safe'</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+</div></pre></div>
+</details>
+</dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="add_linkcode_class.html">CSS Styling for Linkcode Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github_style.html">GitHub Dark Theme Pygments Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lexer.html">Pygments Lexer for Syntax Highlighting of Methods, Classes, Type Hints, and more</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">The Utils Subpackage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils</span></code> subpackage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="git.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils.git</span></code> submodule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linkcode.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils.linkcode</span></code> submodule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils.sphinx</span></code> submodule</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="sphinx-github-style - GitHub source code links and syntax highlighting for Sphinx documentation"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="add_linkcode_class.html" rel="next" title="CSS Styling for Linkcode Links">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2023, Adam Korn.</p>
+</div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

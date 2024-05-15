@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="writer-html5" lang="en">
+<head>
+<meta charset="utf-8"/><meta content="Sphinx Github Style" name="title"/>
+<meta content="A Sphinx extension to add GitHub source code links and syntax highlighting" name="description"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>sphinx-github-style - GitHub source code links and syntax highlighting for Sphinx documentation — sphinx-github-style 1.2.2 documentation</title>
+<link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="_static/github_style.css" rel="stylesheet" type="text/css"/>
+<link href="_static/sphinx-inlinecode.css" rel="stylesheet" type="text/css"/>
+<link href="_static/custom.css" rel="stylesheet" type="text/css"/>
+<link href="https://sphinx-github-style.readthedocs.io/en/latest/index.html" rel="canonical"/>
+<!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+<script src="_static/jquery.js"></script>
+<script src="_static/underscore.js"></script>
+<script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="_static/doctools.js"></script>
+<script src="_static/sphinx_highlight.js"></script>
+<script src="_static/sphinx-inlinecode.js"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="modules.html" rel="next" title="The sphinx_github_style Package"/>
+<link href="contents.html" rel="prev" title="Table Of Contents"/>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="contents.html">
+            sphinx-github-style
+              <img alt="Logo" class="logo" src="_static/logo_square.ico"/>
+</a>
+<div class="version">
+                1.2.2
+              </div>
+<div role="search">
+<form action="search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">README</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#about">About</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#github-source-code-links">GitHub Source Code Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#syntax-highlighting">Syntax Highlighting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#optional-configuration-variables">Optional Configuration Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linkcode-blob"><code class="docutils literal notranslate"><span class="pre">linkcode_blob</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linkcode-url"><code class="docutils literal notranslate"><span class="pre">linkcode_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linkcode-link-text"><code class="docutils literal notranslate"><span class="pre">linkcode_link_text</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linkcode-resolve"><code class="docutils literal notranslate"><span class="pre">linkcode_resolve</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style</span></code> Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#sphinx_github_style.__init__.setup"><code class="docutils literal notranslate"><span class="pre">setup()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="add_linkcode_class.html">CSS Styling for Linkcode Links</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="add_linkcode_class.html#sphinx_github_style.add_linkcode_class.add_linkcode_node_class"><code class="docutils literal notranslate"><span class="pre">add_linkcode_node_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="add_linkcode_class.html#the-github-style-stylesheet">The <code class="docutils literal notranslate"><span class="pre">github_style.css</span></code> StyleSheet</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="github_style.html">GitHub Dark Theme Pygments Style</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="github_style.html#sphinx_github_style.github_style.GitHubStyle"><code class="docutils literal notranslate"><span class="pre">GitHubStyle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="github_style.html#sphinx_github_style.github_style.GitHubStyle.background_color"><code class="docutils literal notranslate"><span class="pre">GitHubStyle.background_color</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="github_style.html#sphinx_github_style.github_style.GitHubStyle.default_style"><code class="docutils literal notranslate"><span class="pre">GitHubStyle.default_style</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="github_style.html#sphinx_github_style.github_style.GitHubStyle.styles"><code class="docutils literal notranslate"><span class="pre">GitHubStyle.styles</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lexer.html">Pygments Lexer for Syntax Highlighting of Methods, Classes, Type Hints, and more</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.get_builtins"><code class="docutils literal notranslate"><span class="pre">get_builtins()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.GitHubLexer"><code class="docutils literal notranslate"><span class="pre">GitHubLexer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.GitHubLexer.name"><code class="docutils literal notranslate"><span class="pre">GitHubLexer.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.GitHubLexer.url"><code class="docutils literal notranslate"><span class="pre">GitHubLexer.url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.GitHubLexer.aliases"><code class="docutils literal notranslate"><span class="pre">GitHubLexer.aliases</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lexer.html#sphinx_github_style.lexer.GitHubLexer.get_tokens_unprocessed"><code class="docutils literal notranslate"><span class="pre">GitHubLexer.get_tokens_unprocessed()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils</span></code> subpackage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="git.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils.git</span></code> submodule</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="git.html#sphinx_github_style.utils.git.get_head"><code class="docutils literal notranslate"><span class="pre">get_head()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="git.html#sphinx_github_style.utils.git.get_last_tag"><code class="docutils literal notranslate"><span class="pre">get_last_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="git.html#sphinx_github_style.utils.git.get_repo_dir"><code class="docutils literal notranslate"><span class="pre">get_repo_dir()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="linkcode.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils.linkcode</span></code> submodule</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="linkcode.html#sphinx_github_style.utils.linkcode.get_linkcode_revision"><code class="docutils literal notranslate"><span class="pre">get_linkcode_revision()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="linkcode.html#sphinx_github_style.utils.linkcode.get_linkcode_url"><code class="docutils literal notranslate"><span class="pre">get_linkcode_url()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="linkcode.html#sphinx_github_style.utils.linkcode.get_linkcode_resolve"><code class="docutils literal notranslate"><span class="pre">get_linkcode_resolve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sphinx.html">The <code class="docutils literal notranslate"><span class="pre">sphinx_github_style.utils.sphinx</span></code> submodule</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sphinx.html#sphinx_github_style.utils.sphinx.get_conf_val"><code class="docutils literal notranslate"><span class="pre">get_conf_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sphinx.html#sphinx_github_style.utils.sphinx.set_conf_val"><code class="docutils literal notranslate"><span class="pre">set_conf_val()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contents.html">Table Of Contents</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="contents.html">sphinx-github-style</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="contents.html"></a></li>
+<li class="breadcrumb-item active">sphinx-github-style - GitHub source code links and syntax highlighting for Sphinx documentation</li>
+<li class="wy-breadcrumbs-aside">
+<a class="fa fa-github" href="https://github.com/TDKorn/sphinx-github-style/blob/index.rst"> Edit on GitHub</a>
+</li>
+</ul><div aria-label="Sequential page navigation" class="rst-breadcrumbs-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="contents.html" title="Table Of Contents"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="modules.html" title="The sphinx_github_style Package">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div align="center"><a class="reference internal image-reference" href="_images/logo_square.ico"><img alt="Sphinx GitHub Style: GitHub Integration and Pygments Style for Sphinx Documentation" src="_images/logo_square.ico" style="width: 25%;"/></a>
+<h1>Sphinx Github Style</h1><p>GitHub source code links and syntax highlighting for Sphinx documentation</p>
+<a class="reference external image-reference" href="https://pypi.org/project/sphinx-github-style/"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/sphinx-github-style?color=eb5202"/></a>
+<a class="reference external image-reference" href="https://github.com/tdkorn/sphinx-github-style/"><img alt="GitHub Repository" src="https://img.shields.io/badge/GitHub-sphinx--github--style-4f1abc"/></a>
+<a class="reference external image-reference" href="https://pepy.tech/project/sphinx-github-style/"><img alt="https://static.pepy.tech/personalized-badge/sphinx-github-style?period=total&amp;units=none&amp;left_color=grey&amp;right_color=blue&amp;left_text=Downloads" src="https://static.pepy.tech/personalized-badge/sphinx-github-style?period=total&amp;units=none&amp;left_color=grey&amp;right_color=blue&amp;left_text=Downloads"/></a>
+<a class="reference external image-reference" href="https://sphinx-github-style.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/sphinx-github-style/badge/?version=latest"/></a>
+</div>
+<br/>
+<br/><div class="section" id="about">
+<h1>About<a class="headerlink" href="#about" title="Permalink to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">sphinx-github-style</span></code> is a Sphinx extension that links your documentation to GitHub source code.
+It also adds syntax highlighting for code blocks similar to GitHub’s pretty lights dark theme.</p>
+<p>…</p>
+<div class="section" id="github-source-code-links">
+<h2>GitHub Source Code Links<a class="headerlink" href="#github-source-code-links" title="Permalink to this heading"></a></h2>
+<p>Using <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v7.4.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a>,  a <code class="docutils literal notranslate"><span class="pre">View</span> <span class="pre">on</span> <span class="pre">GitHub</span></code> link is added to the documentation of every class, method, function, and property:</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">sphinx_github_style.utils.git.</span></span><span class="sig-name descname"><span class="pre">get_repo_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/TDKorn/sphinx-github-style/blob/master/sphinx_github_style/utils/git.py#L43-L55"><span class="linkcode-link"><span class="pre">View</span> <span class="pre">on</span> <span class="pre">GitHub</span></span></a>
+<details class="sphinx-inlinecode">
+<summary>
+<span class="pre">View Source Code</span>
+</summary>
+<div class="highlight"><pre><div class="viewcode-block" id="sphinx_github_style.utils.git.get_repo_dir"><span class="k">def</span> <span class="nf">get_repo_dir</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nc">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Returns the root directory of the repository</span>
+
+<span class="sd">    :return: A Path object representing the working directory of the repository.</span>
+<span class="sd">    """</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s2">"git rev-parse --show-toplevel"</span>
+        <span class="n">repo_dir</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="kp">check_output</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="kp">split</span><span class="p">(</span><span class="s2">" "</span><span class="p">))</span><span class="o">.</span><span class="kp">strip</span><span class="p">()</span><span class="o">.</span><span class="kp">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">))</span>
+
+    <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="nc">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Unable to determine the repository directory"</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+    <span class="k">return</span> <span class="n">repo_dir</span>
+</div></pre></div>
+</details>
+</dt>
+<dd><p>Returns the root directory of the repository</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A Path object representing the working directory of the repository.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.12)"><em>Path</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+<p>They link to and highlight the corresponding code block in your GitHub repository:</p>
+<img alt="The linked corresponding highlighted source code block on GitHub" src="_images/github_linked_code.png"/>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These links can be <a class="reference internal" href="add_linkcode_class.html"><span class="doc">styled with CSS</span></a> and used with/instead
+of the links added by <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html#module-sphinx.ext.viewcode" title="(in Sphinx v7.4.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sphinx.ext.viewcode</span></code></a></p>
+</div>
+</div>
+<div class="section" id="syntax-highlighting">
+<h2>Syntax Highlighting<a class="headerlink" href="#syntax-highlighting" title="Permalink to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">sphinx-github-style</span></code> also contains a <code class="docutils literal notranslate"><span class="pre">Pygments</span></code> style to highlight code blocks similar to GitHub:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_repo_dir</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nc">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Returns the root directory of the repository</span>
+
+<span class="sd">    :return: A Path object representing the working directory of the repository.</span>
+<span class="sd">    """</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s2">"git rev-parse --show-toplevel"</span>
+        <span class="n">repo_dir</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="kp">check_output</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="kp">split</span><span class="p">(</span><span class="s2">" "</span><span class="p">))</span><span class="o">.</span><span class="kp">strip</span><span class="p">()</span><span class="o">.</span><span class="kp">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">))</span>
+
+    <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="nc">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Unable to determine the repository directory"</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+    <span class="k">return</span> <span class="n">repo_dir</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<p>To install using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">github</span><span class="o">-</span><span class="n">style</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h1>
+<p>Add the extension to your <code class="docutils literal notranslate"><span class="pre">conf.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"sphinx_github_style"</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="optional-configuration-variables">
+<h2>Optional Configuration Variables<a class="headerlink" href="#optional-configuration-variables" title="Permalink to this heading"></a></h2>
+<p>Add any (or none) of the following configuration variables to your <code class="docutils literal notranslate"><span class="pre">conf.py</span></code></p>
+<div class="section" id="linkcode-blob">
+<h3><code class="docutils literal notranslate"><span class="pre">linkcode_blob</span></code><a class="headerlink" href="#linkcode-blob" title="Permalink to this heading"></a></h3>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-linkcode_blob">
+<span class="sig-name descname"><span class="pre">linkcode_blob</span></span><a class="headerlink" href="#confval-linkcode_blob" title="Permalink to this definition"></a></dt>
+<dd><p>The blob to link to on GitHub - any of <code class="docutils literal notranslate"><span class="pre">"head"</span></code>, <code class="docutils literal notranslate"><span class="pre">"last_tag"</span></code>, or <code class="docutils literal notranslate"><span class="pre">"{blob}"</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">head</span></code> (default): links to the most recent commit hash; if this commit is tagged, uses the tag instead</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">last_tag</span></code>: links to the most recent commit tag on the currently checked out branch</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">blob</span></code>: links to any blob you want, for example <code class="docutils literal notranslate"><span class="pre">"master"</span></code> or <code class="docutils literal notranslate"><span class="pre">"v2.0.1"</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">"head"</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+</div>
+<div class="section" id="linkcode-url">
+<h3><code class="docutils literal notranslate"><span class="pre">linkcode_url</span></code><a class="headerlink" href="#linkcode-url" title="Permalink to this heading"></a></h3>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-linkcode_url">
+<span class="sig-name descname"><span class="pre">linkcode_url</span></span><a class="headerlink" href="#confval-linkcode_url" title="Permalink to this definition"></a></dt>
+<dd><p>The link to your GitHub repository formatted as <code class="docutils literal notranslate"><span class="pre">https://github.com/user/repo</span></code></p>
+<ul class="simple">
+<li><p>If not provided, will attempt to create the link from the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_context" title="(in Sphinx v7.4.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">html_context</span></code></a> dict</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">f"https://github.com/{html_context['github_user']}/{html_context['github_repo']}/{html_context['github_version']}"</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+</div>
+<div class="section" id="linkcode-link-text">
+<h3><code class="docutils literal notranslate"><span class="pre">linkcode_link_text</span></code><a class="headerlink" href="#linkcode-link-text" title="Permalink to this heading"></a></h3>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-linkcode_link_text">
+<span class="sig-name descname"><span class="pre">linkcode_link_text</span></span><a class="headerlink" href="#confval-linkcode_link_text" title="Permalink to this definition"></a></dt>
+<dd><p>The text to use for the linkcode link</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">"View</span> <span class="pre">on</span> <span class="pre">GitHub"</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+</div>
+<div class="section" id="linkcode-resolve">
+<h3><code class="docutils literal notranslate"><span class="pre">linkcode_resolve</span></code><a class="headerlink" href="#linkcode-resolve" title="Permalink to this heading"></a></h3>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-linkcode_resolve">
+<span class="sig-name descname"><span class="pre">linkcode_resolve</span></span><a class="headerlink" href="#confval-linkcode_resolve" title="Permalink to this definition"></a></dt>
+<dd><p>A <code class="docutils literal notranslate"><span class="pre">linkcode_resolve()</span></code> function to use when resolving the link target with <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v7.4.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Callable</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p>Return value from <a class="reference internal" href="linkcode.html#sphinx_github_style.utils.linkcode.get_linkcode_resolve" title="sphinx_github_style.utils.linkcode.get_linkcode_resolve"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_linkcode_resolve()</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="contents.html" rel="prev" title="Table Of Contents"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="modules.html" rel="next" title="The sphinx_github_style Package">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2023, Adam Korn.</p>
+</div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>
